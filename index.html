@@ -1,210 +1,1018 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>S A L L Y</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Creepster&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Creepster&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
 
-:root { –blood: #8b0000; }
+:root {
+  --blood: #8b0000;
+  --gold: #c9a870;
+  --dim: rgba(15,5,0,0.8);
+}
 
-- { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { background: #000; color: #c9a870; font-family: ‘Crimson Text’, serif; min-height: 100vh; overflow-x: hidden; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:#000;color:var(--gold);font-family:'Crimson Text',serif;min-height:100vh;overflow-x:hidden;}
 
-/* ===== WINDOWS 11 BOOT SCREEN ===== */
-#win11-screen { position: fixed; inset: 0; background: #000; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: ‘Segoe UI’, -apple-system, system-ui, sans-serif; overflow: hidden; cursor: default; }
-#win11-wallpaper { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, #1a3a5c 0%, #0d2137 40%, #061523 100%); opacity: 0; transition: opacity 1.5s ease; }
-#win11-wallpaper.show { opacity: 1; }
-#win11-boot-logo { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 40px; opacity: 0; transition: opacity 1s ease; }
-#win11-boot-logo.show { opacity: 1; }
-#win11-spinner { width: 40px; height: 40px; position: relative; }
-#win11-spinner::after { content: ‘’; position: absolute; inset: 0; border: 3px solid transparent; border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-#win11-desktop { position: absolute; inset: 0; z-index: 3; opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
-#win11-desktop.show { opacity: 1; pointer-events: all; }
-#win11-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, #1a3a5c 0%, #0d2137 40%, #061523 100%); }
-#win11-bloom { position: absolute; width: 120vw; height: 120vh; top: -10vh; left: -10vw; background: radial-gradient(ellipse at 35% 65%, rgba(0,90,180,0.35) 0%, rgba(0,50,120,0.2) 30%, transparent 65%); animation: bloomFloat 12s ease-in-out infinite; }
-@keyframes bloomFloat { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(2%,1%) scale(1.03);} }
-#win11-taskbar { position: absolute; bottom: 0; left: 0; right: 0; height: 48px; background: rgba(8,20,35,0.85); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; gap: 6px; z-index: 10; }
-.tb-icon { width: 36px; height: 36px; border-radius: 6px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s; font-size: 18px; }
-.tb-icon:hover { background: rgba(255,255,255,0.15); }
-#win11-clock { position: absolute; right: 16px; font-size: 11px; color: rgba(255,255,255,0.85); text-align: center; line-height: 1.5; }
-#sally-icon { position: absolute; top: 40px; left: 50px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; padding: 8px; border-radius: 6px; transition: background 0.15s; user-select: none; z-index: 5; }
-#sally-icon:hover { background: rgba(255,255,255,0.12); }
-#sally-icon.selected { background: rgba(0,120,215,0.35); outline: 1px solid rgba(0,120,215,0.7); }
-#sally-icon-img { width: 52px; height: 52px; font-size: 42px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
-#sally-icon-label { font-size: 11.5px; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.8); text-align: center; max-width: 80px; }
-#win11-open-flash { position: absolute; inset: 0; z-index: 20; background: #fff; opacity: 0; pointer-events: none; transition: opacity 0.05s; }
+/* ============================================================
+   WINDOWS 11 DESKTOP
+   ============================================================ */
+#win11-screen{
+  position:fixed;inset:0;background:#000;z-index:999999;
+  font-family:'Segoe UI',-apple-system,sans-serif;overflow:hidden;cursor:default;
+}
+#win11-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 60%,#1a3a5c,#0d2137 40%,#061523);
+  opacity:0;transition:opacity 1.5s;
+}
+#win11-bg.show{opacity:1;}
+#win11-boot-logo{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:40px;
+  opacity:0;transition:opacity 1s;z-index:5;
+}
+#win11-boot-logo.show{opacity:1;}
+#win11-spinner::after{
+  content:'';display:block;width:40px;height:40px;
+  border:3px solid transparent;border-top-color:#fff;
+  border-radius:50%;animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* ===== LOADING SCREEN ===== */
-#loader { position: fixed; inset: 0; background: #000; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-#blood-fill { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, #500000 0%, #8b0000 50%, #cc0000 100%); transition: height 4.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1; }
-#blood-fill::before { content: ‘’; position: absolute; top: -25px; left: 0; width: 100%; height: 30px; background: radial-gradient(ellipse 12px 18px at 6% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 9px 22px at 14% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 14px 16px at 23% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 8px 24px at 32% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 11px 19px at 41% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 13px 15px at 51% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 9px 21px at 61% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 12px 17px at 70% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 10px 23px at 80% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 14px 18px at 90% 0%, #8b0000 50%, transparent 51%), radial-gradient(ellipse 8px 20px at 97% 0%, #8b0000 50%, transparent 51%); }
-#loader-text { font-family: ‘Creepster’, cursive; font-size: clamp(1.6rem, 5vw, 3rem); color: #cc0000; letter-spacing: 0.2em; text-shadow: 0 0 20px rgba(200,0,0,0.9), 0 0 50px rgba(200,0,0,0.5); position: relative; z-index: 3; animation: loadPulse 0.9s ease-in-out infinite; text-align: center; padding: 0 20px; }
-@keyframes loadPulse { 0%,100%{opacity:1;} 50%{opacity:0.55;} }
-#loader.fade-out { animation: loaderFade 1s ease forwards; }
-@keyframes loaderFade { 0%{opacity:1;} 100%{opacity:0; pointer-events:none;} }
+/* ── Desktop icons ── */
+#win11-desktop{
+  position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .8s;z-index:10;
+}
+#win11-desktop.show{opacity:1;pointer-events:all;}
+#win11-bloom{
+  position:absolute;width:120vw;height:120vh;top:-10vh;left:-10vw;
+  background:radial-gradient(ellipse at 35% 65%,rgba(0,90,180,.35),rgba(0,50,120,.2) 30%,transparent 65%);
+  animation:bloomFloat 12s ease-in-out infinite;
+}
+@keyframes bloomFloat{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(2%,1%) scale(1.03);}}
 
-/* ===== SCANLINES ===== */
-body::before { content:’’; position:fixed; inset:0; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px); pointer-events:none; z-index:9999; animation: scanroll 8s linear infinite; }
-body::after { content:’’; position:fixed; inset:0; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.88) 100%); pointer-events:none; z-index:9998; }
-@keyframes scanroll { 0%{background-position:0 0;} 100%{background-position:0 100px;} }
+.desktop-icon{
+  position:absolute;display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;padding:8px;border-radius:6px;transition:background .15s;
+  user-select:none;z-index:5;max-width:90px;
+}
+.desktop-icon:hover{background:rgba(255,255,255,.12);}
+.desktop-icon.selected{background:rgba(0,120,215,.35);outline:1px solid rgba(0,120,215,.7);}
+.di-img{
+  width:52px;height:52px;font-size:38px;display:flex;align-items:center;
+  justify-content:center;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5));
+  border-radius:4px;overflow:hidden;
+}
+.di-img img{width:100%;height:100%;object-fit:cover;border-radius:4px;}
+.di-label{
+  font-size:11.5px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8);
+  text-align:center;max-width:80px;line-height:1.3;
+}
 
-/* ===== JUMPSCARE OVERLAY ===== */
-#jumpscare-overlay { position: fixed; inset: 0; z-index: 500000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.95); pointer-events: none; }
-#jumpscare-overlay.active { display: flex; }
-#jumpscare-face { font-size: clamp(8rem, 30vw, 20rem); animation: jumpFace 0.08s steps(1) infinite; line-height: 1; }
-@keyframes jumpFace { 0%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 40px red);} 25%{transform:scale(1.2) rotate(-3deg);filter:drop-shadow(0 0 60px #ff0) hue-rotate(90deg);} 50%{transform:scale(0.9) rotate(3deg);filter:drop-shadow(0 0 40px red) hue-rotate(180deg);} 75%{transform:scale(1.1) rotate(-2deg);filter:drop-shadow(0 0 80px #f0f) hue-rotate(270deg);} }
-#jumpscare-text { position: absolute; bottom: 10%; left: 0; right: 0; text-align: center; font-family: ‘Creepster’, cursive; font-size: clamp(2rem, 8vw, 5rem); color: #fff; text-shadow: 0 0 30px red; animation: jumpText 0.15s steps(1) infinite; }
-@keyframes jumpText { 0%{opacity:1;transform:translate(-3px,2px);} 33%{opacity:0.7;transform:translate(3px,-2px);color:red;} 66%{opacity:1;transform:translate(-1px,-3px);color:#ff0;} }
+/* Popup window */
+#win-popup{
+  position:absolute;background:rgba(20,20,30,.92);border:1px solid rgba(255,255,255,.18);
+  border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.6);
+  min-width:320px;z-index:50;display:none;
+  backdrop-filter:blur(20px);
+}
+#win-popup.open{display:block;}
+.win-titlebar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.06);border-radius:8px 8px 0 0;cursor:move;
+}
+.win-title{color:#fff;font-size:12px;font-family:'Segoe UI',sans-serif;}
+.win-close{
+  width:12px;height:12px;background:#ff5f56;border-radius:50%;cursor:pointer;
+  border:none;display:flex;align-items:center;justify-content:center;
+  font-size:8px;color:transparent;transition:color .15s;
+}
+.win-close:hover{color:#000;}
+.win-body{padding:12px;max-height:70vh;overflow-y:auto;}
 
-/* ===== HORROR OVERLAY ===== */
-#horror-overlay { position:fixed; inset:0; pointer-events:none; z-index:9997; overflow:hidden; }
-.blood-letter { position:absolute; top:-120px; font-family:‘Creepster’, cursive; color:#cc0000; text-shadow: 0 0 12px rgba(200,0,0,0.9), 0 0 35px rgba(200,0,0,0.5); animation: bloodDrop linear forwards; opacity:0; font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: bold; }
-@keyframes bloodDrop { 0%{top:-120px;opacity:0;} 6%{opacity:1;} 84%{opacity:1;} 100%{top:108vh;opacity:0;} }
+/* Thumbnail grid for Sally file photos */
+#photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.photo-thumb{
+  aspect-ratio:1;background:#111;border:1px solid #333;border-radius:3px;
+  cursor:pointer;overflow:hidden;position:relative;font-size:30px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.15);transition:transform .2s,border-color .2s;
+}
+.photo-thumb:hover{transform:scale(1.04);border-color:#8b0000;}
+.photo-thumb .photo-label{
+  position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);
+  font-size:8px;color:#c00;font-family:'Share Tech Mono',monospace;
+  padding:2px 4px;letter-spacing:1px;
+}
+.photo-thumb.corrupted{animation:photoGlitch 2s infinite;}
+@keyframes photoGlitch{
+  0%,90%,100%{filter:none;}
+  91%{filter:hue-rotate(180deg) saturate(5);}
+  93%{filter:invert(1) blur(1px);}
+  95%{filter:none;}
+}
 
-/* ===== LAYOUT ===== */
-.container { max-width:760px; margin:0 auto; padding:60px 30px 100px; position:relative; z-index:1; }
-.site-header { text-align:center; margin-bottom:50px; }
-.site-header .tag { font-family:‘Special Elite’,monospace; font-size:0.78rem; letter-spacing:6px; color:#8a6030; text-transform:uppercase; display:block; margin-bottom:10px; animation: flicker 6s infinite; }
-.site-header h1 { font-family:‘Creepster’,cursive; font-size:clamp(3rem,10vw,6rem); color:#cc0000; letter-spacing:0.3em; text-shadow: 0 0 20px rgba(200,0,0,0.9), 0 0 60px rgba(139,0,0,0.5), 0 0 120px rgba(139,0,0,0.3); animation: titlePulse 4s ease-in-out infinite, flicker 9s infinite; line-height:1; }
-.site-header .subtitle { font-family:‘Special Elite’,monospace; font-size:0.72rem; letter-spacing:4px; color:#8a6030; margin-top:12px; animation: flicker 7s infinite 2s; }
-.divider { text-align:center; color:#8b0000; margin:30px 0; font-size:1.1rem; letter-spacing:12px; opacity:0.7; animation: flicker 5s infinite 1s; }
-.doll-frame { position:relative; text-align:center; margin:40px 0; }
-.doll-frame img { width:100%; max-width:500px; border:2px solid #5a2a00; box-shadow: 0 0 30px rgba(200,0,0,0.6), 0 0 80px rgba(139,0,0,0.3); filter: sepia(0.3) contrast(1.1) brightness(0.85); animation: imagePulse 8s ease-in-out infinite, glitch 12s infinite; display:block; margin:0 auto; }
-.doll-caption { font-family:‘Special Elite’,monospace; font-size:0.68rem; letter-spacing:3px; color:#8a5028; margin-top:10px; animation: flicker 4s infinite; }
-.doll-frame::before,.doll-frame::after { content:‘✝’; position:absolute; color:#cc0000; font-size:1.2rem; opacity:0.55; animation: flicker 3s infinite; }
-.doll-frame::before { top:-15px; left:20px; }
-.doll-frame::after { top:-15px; right:20px; }
-.story-block { position:relative; margin:35px 0; padding:25px 30px; background:rgba(15,5,0,0.8); border-left:2px solid #7a2000; animation: blockReveal 1s ease forwards; opacity:0; }
-.story-block:nth-child(1){animation-delay:0.3s} .story-block:nth-child(2){animation-delay:0.6s} .story-block:nth-child(3){animation-delay:0.9s} .story-block:nth-child(4){animation-delay:1.2s} .story-block:nth-child(5){animation-delay:1.5s} .story-block:nth-child(6){animation-delay:1.8s} .story-block:nth-child(7){animation-delay:2.1s}
-@keyframes blockReveal { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
-.story-block p { font-size:1.2rem; line-height:2; color:#ddb870; text-align:justify; }
-.story-block p em { color:#e88040; font-style:italic; }
-.story-block p strong { color:#ff4400; font-weight:600; text-shadow:0 0 10px rgba(220,60,0,0.6); }
-.chapter-title { font-family:‘Creepster’,cursive; font-size:1.15rem; color:#dd5500; letter-spacing:5px; text-transform:uppercase; margin-bottom:15px; display:block; text-shadow:0 0 8px rgba(200,80,0,0.5); animation: flicker 7s infinite 3s; }
-.data-block { background:rgba(0,0,0,0.95); border:1px solid #6a1500; padding:20px 25px; margin:40px 0; font-family:‘Special Elite’,monospace; font-size:0.84rem; color:#dd5520; letter-spacing:2px; line-height:2.2; box-shadow: inset 0 0 20px rgba(139,0,0,0.12), 0 0 25px rgba(139,0,0,0.2); animation: flicker 6s infinite 0.5s; }
-.data-block .label { color:#8a3a10; font-size:0.66rem; letter-spacing:5px; display:block; margin-bottom:12px; border-bottom:1px solid #3a0800; padding-bottom:8px; }
-.data-block .line { display:block; }
-.data-block .highlight { color:#ff3300; text-shadow:0 0 8px rgba(220,0,0,0.7); }
-.warning-block { text-align:center; margin:50px 0 30px; padding:30px; border:1px solid rgba(200,0,0,0.45); position:relative; overflow:hidden; }
-.warning-block::before { content:’’; position:absolute; inset:0; background: radial-gradient(ellipse at center, rgba(139,0,0,0.1) 0%, transparent 70%); animation: warningPulse 3s ease-in-out infinite; }
-@keyframes warningPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
-.warning-block .warn-text { font-family:‘Creepster’,cursive; font-size:clamp(1.4rem,4vw,2.2rem); color:#cc0000; letter-spacing:0.18em; text-shadow:0 0 20px rgba(200,0,0,0.8); animation: flicker 2s infinite; position:relative; z-index:1; }
-.warning-block .warn-sub { font-family:‘Special Elite’,monospace; font-size:0.72rem; letter-spacing:3px; color:#9a5525; margin-top:12px; position:relative; z-index:1; }
-.glitch-text { position:relative; display:inline-block; animation: textGlitch 8s infinite; }
-@keyframes textGlitch { 0%,90%,100%{transform:translate(0);color:#ff3300;} 91%{transform:translate(-2px,1px);color:#00cc00;} 92%{transform:translate(2px,-1px);color:#0055cc;} 93%{transform:translate(0);color:#ff3300;} 94%{transform:translate(1px,2px);color:#ff0000;filter:blur(1px);} 95%{transform:translate(0);color:#ff3300;filter:none;} }
-.corrupt { font-family:‘Special Elite’,monospace; color:#9a5528; font-size:0.82rem; letter-spacing:2px; opacity:0.9; animation: flicker 2s infinite; }
-.footer { text-align:center; margin-top:80px; padding-top:30px; border-top:1px solid #3a1000; }
-.footer .skull { font-size:1.5rem; display:block; margin-bottom:15px; animation: flicker 3s infinite; color:#cc0000; text-shadow:0 0 15px rgba(200,0,0,0.7); }
-.footer p { font-family:‘Special Elite’,monospace; font-size:0.75rem; letter-spacing:3px; color:#9a6030; line-height:2.3; }
-.bg-numbers { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
-.bg-num { position:absolute; font-family:‘Special Elite’,monospace; font-size:0.6rem; color:rgba(139,0,0,0.09); animation: floatNum linear infinite; white-space:nowrap; }
-@keyframes floatNum { 0%{transform:translateY(100vh);opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{transform:translateY(-100px);opacity:0;} }
-@keyframes flicker { 0%,94%,100%{opacity:1;} 95%{opacity:0.3;} 96%{opacity:1;} 97%{opacity:0.1;} 98%{opacity:0.8;} }
-@keyframes titlePulse { 0%,100%{text-shadow:0 0 20px rgba(200,0,0,0.8),0 0 60px rgba(139,0,0,0.4);} 50%{text-shadow:0 0 40px rgba(220,0,0,1),0 0 100px rgba(139,0,0,0.6),0 0 200px rgba(139,0,0,0.3);} }
-@keyframes imagePulse { 0%,100%{filter:sepia(0.3) contrast(1.1) brightness(0.85);} 50%{filter:sepia(0.5) contrast(1.2) brightness(0.7) hue-rotate(5deg);} }
-@keyframes glitch { 0%,88%,100%{transform:none;clip-path:none;} 89%{transform:translate(-3px,0);clip-path:inset(20% 0 60% 0);} 90%{transform:translate(3px,0);clip-path:inset(60% 0 10% 0);} 91%{transform:none;clip-path:none;} }
-.blood-drip { position:fixed; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg,transparent,#8b0000 20%,#8b0000 80%,transparent); box-shadow:0 0 20px rgba(139,0,0,0.8); z-index:9997; }
-#progress-bar { position:fixed; top:4px; left:0; height:2px; background:rgba(200,0,0,0.7); width:0%; z-index:9997; transition:width 0.1s; box-shadow:0 0 10px rgba(200,0,0,0.9); }
-.static-burst { position:fixed; inset:0; pointer-events:none; z-index:9996; opacity:0; animation: staticBurst 22s infinite 6s; background:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.15’/%3E%3C/svg%3E”) center/cover; }
-@keyframes staticBurst { 0%,88%,100%{opacity:0;} 89%{opacity:0.35;} 90%{opacity:0;} 91%{opacity:0.5;} 92%{opacity:0;} }
-#am-i-next-btn { font-family: ‘Creepster’, cursive; font-size: clamp(1.4rem, 4vw, 2.2rem); letter-spacing: 0.25em; color: #000; background: #8b0000; border: 2px solid #cc0000; padding: 18px 55px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 30px rgba(139,0,0,0.7), 0 0 80px rgba(139,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.4); transition: all 0.2s; animation: btnPulse 3s ease-in-out infinite; }
-#am-i-next-btn:hover { background: #cc0000; color: #fff; box-shadow: 0 0 50px rgba(200,0,0,0.9), 0 0 120px rgba(200,0,0,0.5); transform: scale(1.05); }
-#am-i-next-btn:active { transform: scale(0.97); }
-@keyframes btnPulse { 0%,100%{ box-shadow:0 0 30px rgba(139,0,0,0.7),0 0 80px rgba(139,0,0,0.3); } 50%{ box-shadow:0 0 60px rgba(200,0,0,1),0 0 130px rgba(200,0,0,0.6); } }
-#page-transition { position: fixed; inset: 0; background: #8b0000; z-index: 200000; opacity: 0; pointer-events: none; transition: opacity 0.06s; }
+/* Photo lightbox */
+#photo-lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200000;
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  gap:20px;
+}
+#photo-lightbox.open{display:flex;}
+#lightbox-inner{
+  max-width:480px;width:90%;background:#0a0a0a;border:1px solid #8b0000;
+  padding:20px;text-align:center;position:relative;
+}
+#lightbox-img{
+  width:100%;aspect-ratio:4/3;background:#0d0d0d;
+  display:flex;align-items:center;justify-content:center;
+  font-size:80px;border:1px solid #2a0000;margin-bottom:12px;
+  position:relative;overflow:hidden;
+}
+#lightbox-caption{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;
+  color:#cc2200;letter-spacing:2px;animation:flicker 3s infinite;
+}
+#lightbox-close{
+  position:absolute;top:8px;right:8px;background:#8b0000;color:#fff;
+  border:none;cursor:pointer;padding:4px 10px;font-size:12px;
+  font-family:'Share Tech Mono',monospace;
+}
+#lightbox-meta{
+  font-family:'Share Tech Mono',monospace;font-size:.65rem;
+  color:#441100;margin-top:8px;line-height:1.8;
+}
 
-/* ===== PAGE 2 ===== */
-#page2 { position: fixed; inset: 0; background: #000; z-index: 50000; overflow-y: auto; overflow-x: hidden; display: none; }
-#p2-scanlines { position: fixed; inset: 0; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.14) 2px,rgba(0,0,0,0.14) 4px); pointer-events: none; z-index: 10; animation: scanroll 6s linear infinite; }
-#p2-vignette { position: fixed; inset: 0; background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.9) 100%); pointer-events: none; z-index: 10; }
-#p2-static { position: fixed; inset: 0; pointer-events: none; z-index: 9; opacity: 0; background: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.85’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.18’/%3E%3C/svg%3E”) center/cover; }
-#p2-redflash { position:fixed; inset:0; background:rgba(139,0,0,0.18); pointer-events:none; z-index:11; opacity:0; }
-#p2-container { max-width: 760px; margin: 0 auto; padding: 70px 30px 120px; position: relative; z-index: 5; }
-#p2-header { text-align: center; margin-bottom: 50px; }
-#p2-tag { font-family: ‘Special Elite’, monospace; font-size: 0.75rem; letter-spacing: 6px; color: #cc2200; text-transform: uppercase; display: block; margin-bottom: 12px; animation: flicker 3s infinite; }
-#p2-title { font-family: ‘Creepster’, cursive; font-size: clamp(2.5rem, 10vw, 5.5rem); color: #cc0000; letter-spacing: 0.3em; text-shadow: 0 0 20px rgba(200,0,0,0.9), 0 0 60px rgba(139,0,0,0.5); animation: titlePulse 3s ease-in-out infinite; line-height: 1; }
-#p2-sub { font-family: ‘Special Elite’, monospace; font-size: 0.72rem; letter-spacing: 4px; color: #8a3010; margin-top: 12px; animation: flicker 5s infinite 1s; }
-.p2-block { margin: 35px 0; padding: 25px 30px; background: rgba(15,5,0,0.8); border-left: 2px solid #7a2000; opacity: 0; transform: translateX(-10px); transition: opacity 0.9s ease, transform 0.9s ease; }
-.p2-block.visible { opacity: 1; transform: translateX(0); }
-.p2-chapter { font-family: ‘Creepster’, cursive; font-size: 1.1rem; color: #dd5500; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 15px; display: block; text-shadow: 0 0 8px rgba(200,80,0,0.5); }
-.p2-block p { font-size: 1.18rem; line-height: 2; color: #ddb870; text-align: justify; }
-.p2-block p em { color: #e88040; font-style: italic; }
-.p2-block p strong { color: #ff4400; font-weight: 600; text-shadow: 0 0 10px rgba(220,60,0,0.6); }
-#p2-chaos-text { font-family: ‘Creepster’, cursive; font-size: clamp(1rem, 3vw, 1.6rem); color: #cc0000; line-height: 1.9; text-align: center; padding: 30px; letter-spacing: 0.05em; min-height: 200px; border: 1px solid rgba(139,0,0,0.35); margin: 30px 0; text-shadow: 0 0 10px rgba(200,0,0,0.7); word-break: break-word; display: none; }
-#p2-its-time { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; font-family: ‘Creepster’, cursive; font-size: clamp(3rem, 13vw, 9rem); color: #cc0000; text-shadow: 0 0 40px rgba(200,0,0,1), 0 0 100px rgba(200,0,0,0.8); z-index: 9000; letter-spacing: 0.2em; animation: itsTimePulse 0.45s ease-in-out infinite; background: rgba(0,0,0,0.88); }
-@keyframes itsTimePulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.55;transform:scale(1.05);} }
+/* Notepad popup */
+#notepad-popup{
+  position:absolute;background:#1c1c1c;border:1px solid #444;
+  border-radius:0;min-width:400px;z-index:55;display:none;
+}
+#notepad-popup.open{display:block;}
+.notepad-bar{
+  background:#2d2d2d;padding:5px 8px;display:flex;
+  justify-content:space-between;align-items:center;cursor:move;
+  border-bottom:1px solid #444;
+}
+.notepad-title{color:#ccc;font-size:11px;font-family:'Share Tech Mono',monospace;}
+.notepad-close{
+  background:#c00;color:#fff;border:none;cursor:pointer;
+  width:14px;height:14px;font-size:9px;border-radius:0;
+}
+.notepad-body{
+  padding:16px;font-family:'Share Tech Mono',monospace;
+  font-size:.72rem;color:#ccc;line-height:2;background:#1c1c1c;
+  white-space:pre-wrap;max-height:400px;overflow-y:auto;
+}
+.notepad-body .red{color:#cc2200;}
+.notepad-body .blink{animation:blink .8s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
 
-/* ===== FBI SEIZURE PAGE ===== */
-#fbi-page { position: fixed; inset: 0; background: #1a1a2e; z-index: 300000; display: none; flex-direction: column; align-items: center; justify-content: flex-start; overflow-y: auto; padding: 40px 20px 60px; font-family: Arial, sans-serif; }
-#fbi-page.show { display: flex; }
-#fbi-static-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0; background: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.2’/%3E%3C/svg%3E”) center/cover; animation: fbiStaticPulse 3s ease-in-out infinite; }
-@keyframes fbiStaticPulse { 0%,100%{opacity:0.04} 50%{opacity:0.12} }
-#fbi-content { position: relative; z-index: 2; max-width: 900px; width: 100%; background: #1c2a4a; border: 3px solid #2a3f6f; box-shadow: 0 0 40px rgba(0,50,150,0.3); }
-#fbi-banner { background: linear-gradient(180deg, #8b0000 0%, #600000 100%); text-align: center; padding: 18px 20px; border-bottom: 4px solid #a00000; }
-#fbi-banner h1 { color: #fff; font-size: clamp(1.3rem, 4vw, 2.2rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-#fbi-body { padding: 30px 40px; background: #f0f0f0; color: #111; }
-#fbi-body-text { font-size: clamp(0.85rem, 2vw, 1rem); line-height: 1.8; text-align: center; color: #222; margin-bottom: 30px; border-bottom: 1px solid #ccc; padding-bottom: 25px; }
-#fbi-seals { display: flex; align-items: center; justify-content: center; gap: clamp(20px, 4vw, 60px); flex-wrap: wrap; padding: 10px 0 20px; }
-.fbi-seal { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.fbi-seal-circle { width: clamp(70px, 12vw, 110px); height: clamp(70px, 12vw, 110px); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: clamp(1.8rem, 4vw, 3.2rem); color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
-.seal-doj { background: radial-gradient(circle, #003399 0%, #001a66 100%); border: 4px solid #0044cc; }
-.seal-fbi { background: radial-gradient(circle, #003399 0%, #001a66 100%); border: 4px solid #ffd700; width: clamp(90px, 15vw, 140px); height: clamp(90px, 15vw, 140px); font-size: clamp(2.2rem, 5vw, 4rem); }
-.seal-dcis { background: radial-gradient(circle, #1a3a1a 0%, #0d1f0d 100%); border: 4px solid #336633; }
-.fbi-seal-label { font-size: clamp(0.55rem, 1.5vw, 0.7rem); color: #333; text-align: center; max-width: 100px; font-weight: bold; letter-spacing: 0.03em; text-transform: uppercase; }
-#fbi-agencies { display: flex; align-items: center; justify-content: center; gap: clamp(20px, 5vw, 80px); flex-wrap: wrap; padding: 20px 0; border-top: 1px solid #ccc; margin-top: 10px; }
-.fbi-agency-name { font-size: clamp(1rem, 3vw, 1.6rem); font-weight: 900; color: #111; letter-spacing: 0.08em; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.fbi-agency-name span { font-size: 0.65rem; color: #555; letter-spacing: 0.05em; font-weight: normal; text-transform: uppercase; }
-#fbi-case-number { background: #ddd; padding: 12px 20px; text-align: center; font-family: ‘Courier New’, monospace; font-size: 0.8rem; color: #333; letter-spacing: 3px; border-top: 1px solid #bbb; }
+/* Taskbar */
+#win11-taskbar{
+  position:absolute;bottom:0;left:0;right:0;height:48px;
+  background:rgba(8,20,35,.85);backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;gap:6px;z-index:20;
+}
+.tb-icon{
+  width:36px;height:36px;border-radius:6px;background:rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .15s;font-size:18px;position:relative;
+}
+.tb-icon:hover{background:rgba(255,255,255,.15);}
+.tb-badge{
+  position:absolute;top:4px;right:4px;background:#cc0000;color:#fff;
+  border-radius:50%;width:12px;height:12px;font-size:8px;
+  display:flex;align-items:center;justify-content:center;font-family:sans-serif;
+}
+#win11-clock{
+  position:absolute;right:16px;font-size:11px;
+  color:rgba(255,255,255,.85);text-align:center;line-height:1.5;
+}
+
+/* ── Screensaver / password ── */
+#win-screensaver{
+  position:absolute;inset:0;background:#000;z-index:30;display:none;
+  align-items:center;justify-content:center;cursor:pointer;
+}
+#win-screensaver.on{display:flex;}
+#screensaver-content{text-align:center;}
+#screensaver-clock{
+  font-family:'Share Tech Mono',monospace;font-size:4rem;color:#1a1a1a;
+  animation:ssFade 4s ease-in-out infinite;
+}
+@keyframes ssFade{0%,100%{color:#1a1a1a;}50%{color:#330000;}}
+
+/* Password screen */
+#win-password{
+  position:absolute;inset:0;background:rgba(0,0,0,.85);z-index:31;
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(20px);
+}
+#win-password.on{display:flex;}
+#pw-box{
+  background:rgba(20,20,30,.9);border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:40px;text-align:center;min-width:300px;
+}
+#pw-avatar{font-size:60px;margin-bottom:12px;}
+#pw-name{color:#fff;font-size:14px;margin-bottom:20px;font-family:'Segoe UI',sans-serif;}
+#pw-input{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
+  border-radius:4px;padding:10px 14px;color:#fff;font-size:14px;
+  width:100%;text-align:center;font-family:'Segoe UI',sans-serif;
+  outline:none;letter-spacing:4px;
+}
+#pw-input:focus{border-color:rgba(0,120,215,.6);}
+#pw-hint{color:rgba(255,255,255,.4);font-size:11px;margin-top:8px;font-family:'Segoe UI',sans-serif;}
+#pw-error{color:#ff4444;font-size:11px;margin-top:6px;font-family:'Segoe UI',sans-serif;display:none;}
+#pw-submit{
+  margin-top:14px;background:#0078d4;color:#fff;border:none;
+  border-radius:4px;padding:10px 24px;cursor:pointer;font-size:13px;
+  font-family:'Segoe UI',sans-serif;transition:background .15s;
+}
+#pw-submit:hover{background:#106ebe;}
+
+/* Notification popup */
+#win-notification{
+  position:absolute;bottom:60px;right:16px;
+  background:rgba(25,25,35,.95);border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:12px 16px;min-width:280px;z-index:60;
+  backdrop-filter:blur(20px);opacity:0;transform:translateY(20px);
+  transition:opacity .4s,transform .4s;pointer-events:none;
+}
+#win-notification.show{opacity:1;transform:translateY(0);pointer-events:all;}
+.notif-app{color:rgba(255,255,255,.5);font-size:10px;font-family:'Segoe UI',sans-serif;margin-bottom:4px;}
+.notif-title{color:#fff;font-size:13px;font-family:'Segoe UI',sans-serif;font-weight:600;margin-bottom:3px;}
+.notif-body{color:rgba(255,255,255,.7);font-size:11px;font-family:'Segoe UI',sans-serif;line-height:1.5;}
+
+/* ── Context menu ── */
+#ctx-menu{
+  position:absolute;background:rgba(25,25,35,.95);border:1px solid rgba(255,255,255,.12);
+  border-radius:6px;padding:4px 0;z-index:100;display:none;min-width:160px;
+  backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(0,0,0,.5);
+}
+#ctx-menu.open{display:block;}
+.ctx-item{
+  padding:7px 16px;font-size:12px;color:rgba(255,255,255,.85);
+  font-family:'Segoe UI',sans-serif;cursor:pointer;
+}
+.ctx-item:hover{background:rgba(255,255,255,.1);}
+.ctx-sep{height:1px;background:rgba(255,255,255,.08);margin:3px 0;}
+
+/* ============================================================
+   BLOOD LOADER
+   ============================================================ */
+#loader{
+  position:fixed;inset:0;background:#000;z-index:99999;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#blood-fill{
+  position:absolute;bottom:0;left:0;width:100%;height:0%;
+  background:linear-gradient(180deg,#500000,#8b0000 50%,#cc0000);
+  transition:height 4.2s cubic-bezier(.25,.46,.45,.94);z-index:1;
+}
+#blood-fill::before{
+  content:'';position:absolute;top:-25px;left:0;width:100%;height:30px;
+  background:
+    radial-gradient(ellipse 12px 18px at 6% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 9px 22px at 14% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 14px 16px at 23% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 8px 24px at 32% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 11px 19px at 41% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 13px 15px at 51% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 9px 21px at 61% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 12px 17px at 70% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 10px 23px at 80% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 14px 18px at 90% 0%,#8b0000 50%,transparent 51%),
+    radial-gradient(ellipse 8px 20px at 97% 0%,#8b0000 50%,transparent 51%);
+}
+#loader-text{
+  font-family:'Creepster',cursive;font-size:clamp(1.6rem,5vw,3rem);
+  color:#cc0000;letter-spacing:.2em;
+  text-shadow:0 0 20px rgba(200,0,0,.9),0 0 50px rgba(200,0,0,.5);
+  position:relative;z-index:3;animation:loadPulse .9s ease-in-out infinite;
+  text-align:center;padding:0 20px;
+}
+@keyframes loadPulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+#loader.fade-out{animation:loaderFade 1s ease forwards;}
+@keyframes loaderFade{0%{opacity:1;}100%{opacity:0;pointer-events:none;}}
+
+/* ============================================================
+   GLOBAL EFFECTS
+   ============================================================ */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
+  pointer-events:none;z-index:9999;animation:scanroll 8s linear infinite;
+}
+body::after{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.88) 100%);
+  pointer-events:none;z-index:9998;
+}
+@keyframes scanroll{0%{background-position:0 0;}100%{background-position:0 100px;}}
+.blood-drip{position:fixed;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,transparent,#8b0000 20%,#8b0000 80%,transparent);box-shadow:0 0 20px rgba(139,0,0,.8);z-index:9997;}
+#progress-bar{position:fixed;top:4px;left:0;height:2px;background:rgba(200,0,0,.7);width:0%;z-index:9997;transition:width .1s;box-shadow:0 0 10px rgba(200,0,0,.9);}
+.static-burst{position:fixed;inset:0;pointer-events:none;z-index:9996;opacity:0;animation:staticBurst 22s infinite 6s;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E") center/cover;}
+@keyframes staticBurst{0%,88%,100%{opacity:0;}89%{opacity:.35;}90%{opacity:0;}91%{opacity:.5;}92%{opacity:0;}}
+
+/* Horror overlay blood letters */
+#horror-overlay{position:fixed;inset:0;pointer-events:none;z-index:9997;overflow:hidden;}
+.blood-letter{
+  position:absolute;top:-120px;font-family:'Creepster',cursive;
+  color:#cc0000;text-shadow:0 0 12px rgba(200,0,0,.9),0 0 35px rgba(200,0,0,.5);
+  animation:bloodDrop linear forwards;opacity:0;
+  font-size:clamp(2.2rem,5vw,4.5rem);font-weight:bold;
+}
+@keyframes bloodDrop{0%{top:-120px;opacity:0;}6%{opacity:1;}84%{opacity:1;}100%{top:108vh;opacity:0;}}
+
+/* Jumpscare */
+#jumpscare-overlay{
+  position:fixed;inset:0;z-index:500000;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(0,0,0,.95);pointer-events:none;
+}
+#jumpscare-overlay.active{display:flex;}
+#jumpscare-face{font-size:clamp(8rem,30vw,20rem);animation:jumpFace .08s steps(1) infinite;line-height:1;}
+@keyframes jumpFace{
+  0%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 40px red);}
+  25%{transform:scale(1.2) rotate(-3deg);filter:drop-shadow(0 0 60px #ff0) hue-rotate(90deg);}
+  50%{transform:scale(.9) rotate(3deg);filter:drop-shadow(0 0 40px red) hue-rotate(180deg);}
+  75%{transform:scale(1.1) rotate(-2deg);filter:drop-shadow(0 0 80px #f0f) hue-rotate(270deg);}
+}
+#jumpscare-text{
+  position:absolute;bottom:10%;left:0;right:0;text-align:center;
+  font-family:'Creepster',cursive;font-size:clamp(2rem,8vw,5rem);
+  color:#fff;text-shadow:0 0 30px red;animation:jumpText .15s steps(1) infinite;
+}
+@keyframes jumpText{
+  0%{opacity:1;transform:translate(-3px,2px);}
+  33%{opacity:.7;transform:translate(3px,-2px);color:red;}
+  66%{opacity:1;transform:translate(-1px,-3px);color:#ff0;}
+}
+
+/* ============================================================
+   MAIN SITE LAYOUT
+   ============================================================ */
+.container{max-width:760px;margin:0 auto;padding:60px 30px 100px;position:relative;z-index:1;}
+.site-header{text-align:center;margin-bottom:50px;}
+.site-header .tag{font-family:'Special Elite',monospace;font-size:.78rem;letter-spacing:6px;color:#8a6030;text-transform:uppercase;display:block;margin-bottom:10px;animation:flicker 6s infinite;}
+.site-header h1{font-family:'Creepster',cursive;font-size:clamp(3rem,10vw,6rem);color:#cc0000;letter-spacing:.3em;text-shadow:0 0 20px rgba(200,0,0,.9),0 0 60px rgba(139,0,0,.5),0 0 120px rgba(139,0,0,.3);animation:titlePulse 4s ease-in-out infinite,flicker 9s infinite;line-height:1;}
+.site-header .subtitle{font-family:'Special Elite',monospace;font-size:.72rem;letter-spacing:4px;color:#8a6030;margin-top:12px;animation:flicker 7s infinite 2s;}
+.divider{text-align:center;color:#8b0000;margin:30px 0;font-size:1.1rem;letter-spacing:12px;opacity:.7;animation:flicker 5s infinite 1s;}
+.story-block{position:relative;margin:35px 0;padding:25px 30px;background:var(--dim);border-left:2px solid #7a2000;animation:blockReveal 1s ease forwards;opacity:0;}
+.story-block:nth-child(1){animation-delay:.3s}.story-block:nth-child(2){animation-delay:.6s}.story-block:nth-child(3){animation-delay:.9s}.story-block:nth-child(4){animation-delay:1.2s}.story-block:nth-child(5){animation-delay:1.5s}.story-block:nth-child(6){animation-delay:1.8s}.story-block:nth-child(7){animation-delay:2.1s}.story-block:nth-child(8){animation-delay:2.4s}
+@keyframes blockReveal{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+.story-block p{font-size:1.2rem;line-height:2;color:#ddb870;text-align:justify;}
+.story-block p em{color:#e88040;font-style:italic;}
+.story-block p strong{color:#ff4400;font-weight:600;text-shadow:0 0 10px rgba(220,60,0,.6);}
+.chapter-title{font-family:'Creepster',cursive;font-size:1.15rem;color:#dd5500;letter-spacing:5px;text-transform:uppercase;margin-bottom:15px;display:block;text-shadow:0 0 8px rgba(200,80,0,.5);animation:flicker 7s infinite 3s;}
+.data-block{background:rgba(0,0,0,.95);border:1px solid #6a1500;padding:20px 25px;margin:40px 0;font-family:'Special Elite',monospace;font-size:.84rem;color:#dd5520;letter-spacing:2px;line-height:2.2;box-shadow:inset 0 0 20px rgba(139,0,0,.12),0 0 25px rgba(139,0,0,.2);animation:flicker 6s infinite .5s;}
+.data-block .label{color:#8a3a10;font-size:.66rem;letter-spacing:5px;display:block;margin-bottom:12px;border-bottom:1px solid #3a0800;padding-bottom:8px;}
+.data-block .line{display:block;}
+.data-block .highlight{color:#ff3300;text-shadow:0 0 8px rgba(220,0,0,.7);}
+.warning-block{text-align:center;margin:50px 0 30px;padding:30px;border:1px solid rgba(200,0,0,.45);position:relative;overflow:hidden;}
+.warning-block::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(139,0,0,.1),transparent 70%);animation:warningPulse 3s ease-in-out infinite;}
+@keyframes warningPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.warning-block .warn-text{font-family:'Creepster',cursive;font-size:clamp(1.4rem,4vw,2.2rem);color:#cc0000;letter-spacing:.18em;text-shadow:0 0 20px rgba(200,0,0,.8);animation:flicker 2s infinite;position:relative;z-index:1;}
+.warning-block .warn-sub{font-family:'Special Elite',monospace;font-size:.72rem;letter-spacing:3px;color:#9a5525;margin-top:12px;position:relative;z-index:1;}
+.glitch-text{position:relative;display:inline-block;animation:textGlitch 8s infinite;}
+@keyframes textGlitch{
+  0%,90%,100%{transform:translate(0);color:#ff3300;}
+  91%{transform:translate(-2px,1px);color:#00cc00;}
+  92%{transform:translate(2px,-1px);color:#0055cc;}
+  93%{transform:translate(0);color:#ff3300;}
+  94%{transform:translate(1px,2px);color:#ff0000;filter:blur(1px);}
+  95%{transform:translate(0);color:#ff3300;filter:none;}
+}
+.corrupt{font-family:'Special Elite',monospace;color:#9a5528;font-size:.82rem;letter-spacing:2px;opacity:.9;animation:flicker 2s infinite;}
+.bg-numbers{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.bg-num{position:absolute;font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(139,0,0,.09);animation:floatNum linear infinite;white-space:nowrap;}
+@keyframes floatNum{0%{transform:translateY(100vh);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(-100px);opacity:0;}}
+@keyframes flicker{0%,94%,100%{opacity:1;}95%{opacity:.3;}96%{opacity:1;}97%{opacity:.1;}98%{opacity:.8;}}
+@keyframes titlePulse{0%,100%{text-shadow:0 0 20px rgba(200,0,0,.8),0 0 60px rgba(139,0,0,.4);}50%{text-shadow:0 0 40px rgba(220,0,0,1),0 0 100px rgba(139,0,0,.6),0 0 200px rgba(139,0,0,.3);}}
+
+/* Doll frame */
+.doll-frame{position:relative;text-align:center;margin:40px 0;}
+.doll-frame::before,.doll-frame::after{content:'✝';position:absolute;color:#cc0000;font-size:1.2rem;opacity:.55;animation:flicker 3s infinite;}
+.doll-frame::before{top:-15px;left:20px;}
+.doll-frame::after{top:-15px;right:20px;}
+.doll-emo{
+  width:100%;max-width:400px;height:260px;background:#0a0000;
+  border:2px solid #5a2a00;box-shadow:0 0 30px rgba(200,0,0,.6),0 0 80px rgba(139,0,0,.3);
+  margin:0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:100px;cursor:pointer;transition:filter .3s;
+  animation:imagePulse 8s ease-in-out infinite;
+}
+.doll-emo:hover{filter:brightness(1.3) saturate(2);}
+@keyframes imagePulse{0%,100%{filter:sepia(.3) contrast(1.1) brightness(.85);}50%{filter:sepia(.5) contrast(1.2) brightness(.7) hue-rotate(5deg);}}
+.doll-caption{font-family:'Special Elite',monospace;font-size:.68rem;letter-spacing:3px;color:#8a5028;margin-top:10px;animation:flicker 4s infinite;}
+.footer{text-align:center;margin-top:80px;padding-top:30px;border-top:1px solid #3a1000;}
+.footer .skull{font-size:1.5rem;display:block;margin-bottom:15px;animation:flicker 3s infinite;color:#cc0000;text-shadow:0 0 15px rgba(200,0,0,.7);}
+.footer p{font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:3px;color:#9a6030;line-height:2.3;}
+#page-transition{position:fixed;inset:0;background:#8b0000;z-index:200000;opacity:0;pointer-events:none;transition:opacity .06s;}
+#am-i-next-btn{
+  font-family:'Creepster',cursive;font-size:clamp(1.4rem,4vw,2.2rem);
+  letter-spacing:.25em;color:#000;background:#8b0000;border:2px solid #cc0000;
+  padding:18px 55px;cursor:pointer;text-transform:uppercase;
+  box-shadow:0 0 30px rgba(139,0,0,.7),0 0 80px rgba(139,0,0,.3),inset 0 0 20px rgba(0,0,0,.4);
+  transition:all .2s;animation:btnPulse 3s ease-in-out infinite;
+}
+#am-i-next-btn:hover{background:#cc0000;color:#fff;box-shadow:0 0 50px rgba(200,0,0,.9),0 0 120px rgba(200,0,0,.5);transform:scale(1.05);}
+@keyframes btnPulse{0%,100%{box-shadow:0 0 30px rgba(139,0,0,.7),0 0 80px rgba(139,0,0,.3);}50%{box-shadow:0 0 60px rgba(200,0,0,1),0 0 130px rgba(200,0,0,.6);}}
+
+/* ============================================================
+   SECRET CIPHER SECTION
+   ============================================================ */
+#cipher-section{
+  margin:50px 0;padding:30px;
+  background:rgba(0,0,0,.9);border:1px solid #3a0800;
+  font-family:'Share Tech Mono',monospace;
+}
+#cipher-section h3{
+  font-family:'Creepster',cursive;color:#cc0000;font-size:1.2rem;
+  letter-spacing:4px;margin-bottom:16px;
+}
+.cipher-row{
+  display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;
+}
+.cipher-label{color:#8a3010;font-size:.65rem;letter-spacing:3px;min-width:80px;}
+.cipher-value{
+  color:#dd5520;font-size:.8rem;letter-spacing:3px;cursor:pointer;
+  border-bottom:1px dashed #3a0800;padding-bottom:2px;
+  transition:color .2s;
+}
+.cipher-value:hover{color:#ff3300;}
+.cipher-value.decoded{color:#00cc44;animation:flicker 3s infinite;}
+#cipher-input-row{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;}
+#cipher-input{
+  background:rgba(255,255,255,.05);border:1px solid #3a1000;
+  color:#dd5520;font-family:'Share Tech Mono',monospace;
+  font-size:.8rem;padding:8px 12px;letter-spacing:3px;outline:none;
+  flex:1;min-width:200px;
+}
+#cipher-input:focus{border-color:#8b0000;}
+#cipher-submit{
+  background:#3a0800;color:#cc3300;border:1px solid #6a1500;
+  font-family:'Share Tech Mono',monospace;font-size:.8rem;
+  padding:8px 16px;cursor:pointer;letter-spacing:2px;
+  transition:background .2s;
+}
+#cipher-submit:hover{background:#6a1500;color:#ff4400;}
+#cipher-result{
+  margin-top:12px;font-size:.75rem;color:#cc0000;
+  letter-spacing:2px;min-height:20px;
+}
+
+/* ============================================================
+   ARG PUZZLE PANEL
+   ============================================================ */
+#arg-panel{
+  margin:50px 0;padding:28px 30px;
+  background:rgba(0,0,0,.95);border:1px solid #1a0500;
+  border-right:3px solid #8b0000;
+}
+#arg-panel h3{
+  font-family:'Creepster',cursive;color:#cc0000;font-size:1.1rem;
+  letter-spacing:5px;margin-bottom:16px;
+}
+.clue-card{
+  margin:12px 0;padding:14px;background:rgba(10,0,0,.6);
+  border:1px solid #2a0500;cursor:pointer;transition:border-color .2s;
+  position:relative;overflow:hidden;
+}
+.clue-card:hover{border-color:#8b0000;}
+.clue-card .clue-id{
+  font-family:'Share Tech Mono',monospace;font-size:.65rem;
+  color:#440000;letter-spacing:4px;margin-bottom:6px;
+}
+.clue-card .clue-text{
+  font-family:'Special Elite',monospace;font-size:.78rem;
+  color:#9a5528;letter-spacing:1px;line-height:1.8;
+}
+.clue-card .clue-revealed{
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  color:#cc2200;margin-top:8px;display:none;animation:flicker 2s infinite;
+}
+.clue-card.open .clue-revealed{display:block;}
+.clue-card::after{
+  content:'▶';position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  color:#440000;font-size:.8rem;transition:transform .2s;
+}
+.clue-card.open::after{transform:translateY(-50%) rotate(90deg);color:#cc0000;}
+
+/* ============================================================
+   PAGE 2 – YOU ARE NEXT
+   ============================================================ */
+#page2{
+  position:fixed;inset:0;background:#000;z-index:50000;
+  overflow-y:auto;overflow-x:hidden;display:none;
+}
+#p2-scanlines{position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.14) 2px,rgba(0,0,0,.14) 4px);pointer-events:none;z-index:10;animation:scanroll 6s linear infinite;}
+#p2-vignette{position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.9) 100%);pointer-events:none;z-index:10;}
+#p2-static{position:fixed;inset:0;pointer-events:none;z-index:9;opacity:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E") center/cover;}
+#p2-redflash{position:fixed;inset:0;background:rgba(139,0,0,.18);pointer-events:none;z-index:11;opacity:0;}
+#p2-container{max-width:760px;margin:0 auto;padding:70px 30px 120px;position:relative;z-index:5;}
+#p2-header{text-align:center;margin-bottom:50px;}
+#p2-tag{font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:6px;color:#cc2200;text-transform:uppercase;display:block;margin-bottom:12px;animation:flicker 3s infinite;}
+#p2-title{font-family:'Creepster',cursive;font-size:clamp(2.5rem,10vw,5.5rem);color:#cc0000;letter-spacing:.3em;text-shadow:0 0 20px rgba(200,0,0,.9),0 0 60px rgba(139,0,0,.5);animation:titlePulse 3s ease-in-out infinite;line-height:1;}
+#p2-sub{font-family:'Special Elite',monospace;font-size:.72rem;letter-spacing:4px;color:#8a3010;margin-top:12px;animation:flicker 5s infinite 1s;}
+.p2-block{margin:35px 0;padding:25px 30px;background:var(--dim);border-left:2px solid #7a2000;opacity:0;transform:translateX(-10px);transition:opacity .9s,transform .9s;}
+.p2-block.visible{opacity:1;transform:translateX(0);}
+.p2-chapter{font-family:'Creepster',cursive;font-size:1.1rem;color:#dd5500;letter-spacing:5px;text-transform:uppercase;margin-bottom:15px;display:block;text-shadow:0 0 8px rgba(200,80,0,.5);}
+.p2-block p{font-size:1.18rem;line-height:2;color:#ddb870;text-align:justify;}
+.p2-block p em{color:#e88040;font-style:italic;}
+.p2-block p strong{color:#ff4400;font-weight:600;text-shadow:0 0 10px rgba(220,60,0,.6);}
+#p2-chaos-text{
+  font-family:'Creepster',cursive;font-size:clamp(1rem,3vw,1.6rem);
+  color:#cc0000;line-height:1.9;text-align:center;padding:30px;
+  letter-spacing:.05em;min-height:200px;border:1px solid rgba(139,0,0,.35);
+  margin:30px 0;text-shadow:0 0 10px rgba(200,0,0,.7);word-break:break-word;
+  display:none;
+}
+#p2-its-time{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+  font-family:'Creepster',cursive;font-size:clamp(3rem,13vw,9rem);
+  color:#cc0000;text-shadow:0 0 40px rgba(200,0,0,1),0 0 100px rgba(200,0,0,.8);
+  z-index:9000;letter-spacing:.2em;animation:itsTimePulse .45s ease-in-out infinite;
+  background:rgba(0,0,0,.88);
+}
+@keyframes itsTimePulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.55;transform:scale(1.05);}}
+
+/* ============================================================
+   PAGE 3 – THE ARCHIVE (secret ARG page)
+   ============================================================ */
+#page3{
+  position:fixed;inset:0;background:#000;z-index:60000;
+  overflow-y:auto;display:none;
+}
+#p3-container{max-width:760px;margin:0 auto;padding:60px 30px 100px;position:relative;z-index:5;}
+#p3-title{
+  font-family:'Share Tech Mono',monospace;color:#00cc44;font-size:clamp(1.2rem,4vw,2.2rem);
+  letter-spacing:.15em;text-shadow:0 0 20px rgba(0,200,60,.7);
+  text-align:center;margin-bottom:8px;animation:flicker 5s infinite;
+}
+#p3-sub{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;
+  color:#005522;letter-spacing:4px;text-align:center;margin-bottom:40px;
+}
+.terminal-block{
+  background:#0a0f0a;border:1px solid #004400;padding:20px;
+  margin:20px 0;font-family:'Share Tech Mono',monospace;
+  font-size:.75rem;color:#00cc44;line-height:2;
+}
+.terminal-block .t-prompt{color:#005522;}
+.terminal-block .t-cmd{color:#00ff66;}
+.terminal-block .t-output{color:#007722;}
+.terminal-block .t-error{color:#cc0000;}
+.terminal-block .t-warn{color:#cc8800;}
+.file-entry{
+  display:flex;align-items:center;gap:12px;margin:8px 0;
+  padding:8px 12px;background:rgba(0,40,0,.3);cursor:pointer;
+  border:1px solid transparent;transition:border-color .2s;
+}
+.file-entry:hover{border-color:#004400;}
+.file-icon{font-size:1.2rem;}
+.file-name{color:#00cc44;font-size:.75rem;letter-spacing:2px;flex:1;}
+.file-size{color:#004400;font-size:.65rem;}
+.file-date{color:#003300;font-size:.65rem;}
+.file-status{font-size:.65rem;}
+.status-ok{color:#00cc44;}
+.status-corrupt{color:#cc0000;animation:flicker 1s infinite;}
+.status-classified{color:#cc8800;}
+#p3-found-badge{
+  text-align:center;margin:30px 0;padding:20px;
+  background:rgba(0,40,0,.4);border:1px solid #004400;
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;color:#00cc44;
+}
+#p3-back{
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;color:#004400;
+  background:none;border:1px solid #004400;padding:10px 20px;
+  cursor:pointer;letter-spacing:2px;margin-top:20px;
+  transition:color .2s,border-color .2s;
+}
+#p3-back:hover{color:#00cc44;border-color:#00cc44;}
+
+/* ============================================================
+   PAGE 4 – THE TRANSMISSION
+   ============================================================ */
+#page4{
+  position:fixed;inset:0;background:#000;z-index:60000;
+  overflow-y:auto;display:none;
+}
+#p4-container{max-width:700px;margin:0 auto;padding:80px 30px 100px;}
+#p4-header{
+  text-align:center;font-family:'Creepster',cursive;
+  font-size:clamp(1.5rem,5vw,3rem);color:#cc0000;
+  letter-spacing:.2em;text-shadow:0 0 30px rgba(200,0,0,.8);
+  margin-bottom:10px;animation:titlePulse 3s infinite;
+}
+#p4-freq{
+  text-align:center;font-family:'Share Tech Mono',monospace;
+  font-size:.7rem;color:#440000;letter-spacing:6px;margin-bottom:40px;
+}
+.transmission{
+  margin:25px 0;padding:20px;background:rgba(5,0,0,.9);
+  border-left:3px solid #8b0000;font-family:'Share Tech Mono',monospace;
+  font-size:.75rem;line-height:2.2;position:relative;overflow:hidden;
+}
+.transmission::before{
+  content:attr(data-id);position:absolute;top:8px;right:12px;
+  font-size:.6rem;color:#330000;letter-spacing:3px;
+}
+.t-from{color:#660000;font-size:.65rem;letter-spacing:3px;display:block;margin-bottom:8px;}
+.t-msg{color:#cc5500;line-height:2;}
+.t-msg .fragment{
+  display:inline-block;
+  animation:fragGlitch 6s infinite;
+}
+@keyframes fragGlitch{
+  0%,85%,100%{opacity:1;transform:none;}
+  86%{opacity:.3;transform:translateX(2px);}
+  88%{opacity:1;}
+  90%{opacity:.5;transform:translateX(-2px);}
+  92%{opacity:1;}
+}
+.t-timestamp{color:#330000;font-size:.6rem;letter-spacing:2px;display:block;margin-top:10px;}
+#p4-spectrogram{
+  width:100%;height:80px;background:#050005;border:1px solid #330033;
+  margin:20px 0;position:relative;overflow:hidden;
+}
+.spec-bar{
+  position:absolute;bottom:0;width:3px;background:#8b0000;
+  transition:height .1s;
+}
+#p4-decode-area{
+  margin:30px 0;padding:20px;background:rgba(0,0,0,.95);
+  border:1px solid #330000;
+}
+#p4-decode-area h4{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;
+  color:#660000;letter-spacing:4px;margin-bottom:16px;
+}
+.morse-row{
+  display:flex;align-items:center;gap:10px;margin:6px 0;flex-wrap:wrap;
+}
+.morse-symbol{
+  font-family:'Share Tech Mono',monospace;font-size:1rem;
+  color:#880000;letter-spacing:4px;
+}
+.morse-letter{
+  font-family:'Share Tech Mono',monospace;font-size:.8rem;
+  color:#440000;cursor:pointer;border-bottom:1px dashed #330000;
+  transition:color .2s;
+}
+.morse-letter.decoded{color:#cc2200;}
+#p4-back{
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;color:#440000;
+  background:none;border:1px solid #440000;padding:10px 20px;
+  cursor:pointer;letter-spacing:2px;margin-top:30px;
+  transition:color .2s;
+}
+#p4-back:hover{color:#cc0000;border-color:#8b0000;}
+
+/* ============================================================
+   PAGE 5 – THE CONFESSION
+   ============================================================ */
+#page5{
+  position:fixed;inset:0;background:#0a0000;z-index:60000;
+  overflow-y:auto;display:none;
+}
+#p5-container{max-width:700px;margin:0 auto;padding:80px 30px 120px;}
+#p5-title{
+  font-family:'Creepster',cursive;font-size:clamp(2rem,7vw,4rem);
+  color:#cc0000;text-align:center;letter-spacing:.2em;
+  text-shadow:0 0 30px rgba(200,0,0,.8);margin-bottom:40px;
+  animation:titlePulse 4s infinite;
+}
+.journal-entry{
+  margin:30px 0;padding:24px;
+  background:rgba(5,0,0,.7);
+  border:1px solid #1a0000;
+  position:relative;
+}
+.journal-date{
+  font-family:'Special Elite',monospace;font-size:.7rem;
+  color:#553300;letter-spacing:3px;margin-bottom:12px;display:block;
+}
+.journal-text{
+  font-size:1.1rem;line-height:2;color:#bb8850;font-style:italic;
+}
+.journal-text strong{color:#cc2200;}
+.journal-text em{color:#ee6600;}
+.journal-entry.torn{
+  border-top:none;
+  background:linear-gradient(180deg,transparent,rgba(5,0,0,.7) 20px);
+  margin-top:-5px;
+}
+.redacted{
+  background:#1a0000;color:transparent;
+  user-select:none;cursor:pointer;
+  transition:background .3s,color .3s;
+  border-radius:2px;padding:0 4px;
+}
+.redacted:hover,.redacted.show{
+  background:transparent;color:#ff4400;
+}
+.diary-stamp{
+  position:absolute;top:10px;right:10px;
+  font-family:'Special Elite',monospace;font-size:.65rem;
+  color:#660000;letter-spacing:2px;border:1px solid #330000;
+  padding:3px 8px;transform:rotate(3deg);opacity:.7;
+}
+#p5-final{
+  text-align:center;margin-top:60px;padding:40px;
+  border:1px solid rgba(200,0,0,.3);
+}
+#p5-final p{
+  font-family:'Creepster',cursive;font-size:clamp(1.2rem,4vw,2rem);
+  color:#cc0000;letter-spacing:.1em;text-shadow:0 0 20px rgba(200,0,0,.6);
+  line-height:2;
+}
+#p5-enter-btn{
+  font-family:'Creepster',cursive;font-size:1.2rem;
+  color:#000;background:#8b0000;border:2px solid #cc0000;
+  padding:14px 40px;cursor:pointer;margin-top:24px;
+  letter-spacing:.2em;text-transform:uppercase;
+  animation:btnPulse 3s infinite;transition:all .2s;
+}
+#p5-enter-btn:hover{background:#cc0000;color:#fff;transform:scale(1.05);}
+#p5-back{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;color:#330000;
+  background:none;border:none;cursor:pointer;margin-top:20px;
+  letter-spacing:2px;transition:color .2s;display:block;margin:20px auto 0;
+}
+#p5-back:hover{color:#cc0000;}
+
+/* ============================================================
+   FBI SEIZURE
+   ============================================================ */
+#fbi-page{
+  position:fixed;inset:0;background:#1a1a2e;z-index:300000;
+  display:none;flex-direction:column;align-items:center;justify-content:flex-start;
+  overflow-y:auto;padding:40px 20px 60px;font-family:Arial,sans-serif;
+}
+#fbi-page.show{display:flex;}
+#fbi-static-overlay{
+  position:fixed;inset:0;pointer-events:none;z-index:1;opacity:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.2'/%3E%3C/svg%3E") center/cover;
+  animation:fbiStaticPulse 3s ease-in-out infinite;
+}
+@keyframes fbiStaticPulse{0%,100%{opacity:.04}50%{opacity:.12}}
+#fbi-content{position:relative;z-index:2;max-width:900px;width:100%;background:#1c2a4a;border:3px solid #2a3f6f;box-shadow:0 0 40px rgba(0,50,150,.3);}
+#fbi-banner{background:linear-gradient(180deg,#8b0000,#600000);text-align:center;padding:18px 20px;border-bottom:4px solid #a00000;}
+#fbi-banner h1{color:#fff;font-size:clamp(1.3rem,4vw,2.2rem);font-weight:900;text-transform:uppercase;letter-spacing:.05em;text-shadow:0 2px 4px rgba(0,0,0,.5);}
+#fbi-body{padding:30px 40px;background:#f0f0f0;color:#111;}
+#fbi-body-text{font-size:clamp(.85rem,2vw,1rem);line-height:1.8;text-align:center;color:#222;margin-bottom:30px;border-bottom:1px solid #ccc;padding-bottom:25px;}
+#fbi-seals{display:flex;align-items:center;justify-content:center;gap:clamp(20px,4vw,60px);flex-wrap:wrap;padding:10px 0 20px;}
+.fbi-seal{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.fbi-seal-circle{width:clamp(70px,12vw,110px);height:clamp(70px,12vw,110px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(1.8rem,4vw,3.2rem);color:#fff;box-shadow:0 4px 15px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);}
+.seal-doj{background:radial-gradient(circle,#003399,#001a66);border:4px solid #0044cc;}
+.seal-fbi{background:radial-gradient(circle,#003399,#001a66);border:4px solid #ffd700;width:clamp(90px,15vw,140px);height:clamp(90px,15vw,140px);font-size:clamp(2.2rem,5vw,4rem);}
+.seal-dcis{background:radial-gradient(circle,#1a3a1a,#0d1f0d);border:4px solid #336633;}
+.fbi-seal-label{font-size:clamp(.55rem,1.5vw,.7rem);color:#333;text-align:center;max-width:100px;font-weight:bold;letter-spacing:.03em;text-transform:uppercase;}
+#fbi-agencies{display:flex;align-items:center;justify-content:center;gap:clamp(20px,5vw,80px);flex-wrap:wrap;padding:20px 0;border-top:1px solid #ccc;margin-top:10px;}
+.fbi-agency-name{font-size:clamp(1rem,3vw,1.6rem);font-weight:900;color:#111;letter-spacing:.08em;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.fbi-agency-name span{font-size:.65rem;color:#555;letter-spacing:.05em;font-weight:normal;text-transform:uppercase;}
+#fbi-case-number{background:#ddd;padding:12px 20px;text-align:center;font-family:'Courier New',monospace;font-size:.8rem;color:#333;letter-spacing:3px;border-top:1px solid #bbb;}
+/* FBI: hidden message */
+#fbi-hidden-msg{
+  text-align:center;padding:20px;background:#f0f0f0;
+  font-family:'Courier New',monospace;font-size:.75rem;color:#999;
+  letter-spacing:2px;cursor:pointer;border-top:1px solid #ddd;
+}
+#fbi-hidden-msg:hover{color:#cc0000;}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+* { cursor: none !important; }
+#custom-cursor{
+  position:fixed;width:20px;height:20px;pointer-events:none;z-index:9999999;
+  border:1px solid rgba(200,0,0,.7);border-radius:50%;
+  transform:translate(-50%,-50%);transition:width .1s,height .1s,border-color .1s;
+}
+#custom-cursor-dot{
+  position:fixed;width:4px;height:4px;background:#cc0000;
+  border-radius:50%;pointer-events:none;z-index:9999999;
+  transform:translate(-50%,-50%);
+}
+#custom-cursor.hover{
+  width:30px;height:30px;border-color:rgba(200,0,0,.9);
+  background:rgba(200,0,0,.1);
+}
+
 </style>
-
 </head>
 <body>
 
-<!-- ===== WINDOWS 11 SCREEN ===== -->
+<!-- ============================================================
+     CUSTOM CURSOR
+     ============================================================ -->
+<div id="custom-cursor"></div>
+<div id="custom-cursor-dot"></div>
 
+<!-- ============================================================
+     WINDOWS 11 DESKTOP
+     ============================================================ -->
 <div id="win11-screen">
-<div id="win11-wallpaper"></div>
-<div id="win11-boot-logo">
-<svg width="72" height="72" viewBox="0 0 88 88" fill="none" style="filter:drop-shadow(0 0 20px rgba(0,120,215,0.6))">
-<rect x="4" y="4" width="37" height="37" rx="4" fill="white" opacity="0.95"/>
-<rect x="47" y="4" width="37" height="37" rx="4" fill="white" opacity="0.95"/>
-<rect x="4" y="47" width="37" height="37" rx="4" fill="white" opacity="0.95"/>
-<rect x="47" y="47" width="37" height="37" rx="4" fill="white" opacity="0.95"/>
-</svg>
-<div id="win11-spinner"></div>
-</div>
-<div id="win11-desktop">
-<div id="win11-bg"></div>
-<div id="win11-bloom"></div>
-<div id="sally-icon" onclick="openSallyWebsite()" ondblclick="openSallyWebsite()">
-<div id="sally-icon-img">🎎</div>
-<div id="sally-icon-label">sally.exe</div>
-</div>
-<div id="win11-taskbar">
-<div class="tb-icon">
-<svg width="16" height="16" viewBox="0 0 88 88" fill="none"><rect x="2" y="2" width="38" height="38" rx="3" fill="white" opacity="0.9"/><rect x="48" y="2" width="38" height="38" rx="3" fill="white" opacity="0.9"/><rect x="2" y="48" width="38" height="38" rx="3" fill="white" opacity="0.9"/><rect x="48" y="48" width="38" height="38" rx="3" fill="white" opacity="0.9"/></svg>
-</div>
-<div class="tb-icon">🔍</div>
-<div class="tb-icon">📁</div>
-<div class="tb-icon">🌐</div>
-<div class="tb-icon">⚙️</div>
-<div id="win11-clock"></div>
-</div>
-<div id="win11-open-flash"></div>
-</div>
-</div>
+  <div id="win11-bg"></div>
 
-<!-- ===== MAIN SITE ===== -->
+  <!-- Boot logo -->
+  <div id="win11-boot-logo">
+    <svg width="72" height="72" viewBox="0 0 88 88" fill="none" style="filter:drop-shadow(0 0 20px rgba(0,120,215,.6))">
+      <rect x="4"  y="4"  width="37" height="37" rx="4" fill="white" opacity=".95"/>
+      <rect x="47" y="4"  width="37" height="37" rx="4" fill="white" opacity=".95"/>
+      <rect x="4"  y="47" width="37" height="37" rx="4" fill="white" opacity=".95"/>
+      <rect x="47" y="47" width="37" height="37" rx="4" fill="white" opacity=".95"/>
+    </svg>
+    <div id="win11-spinner"></div>
+  </div>
 
+  <!-- Desktop -->
+  <div id="win11-desktop">
+    <div id="win11-bloom"></div>
+
+    <!-- Desktop icons – column 1 (left) -->
+    <!-- sally.exe -->
+    <div class="desktop-icon" id="icon-sally"
+         style="top:40px;left:50px;"
+         onclick="openSallyWebsite()" ondblclick="openSallyWebsite()">
+      <div class="di-img">🎎</div>
+      <div class="di-label">sally.exe</div>
+    </div>
+
+    <!-- "Sally is Here" photos (8 icons) -->
+    <div class="desktop-icon" id="icon-photo1"
+         style="top:140px;left:50px;"
+         onclick="openPhoto(0)">
+      <div class="di-img" style="background:#0a0000;font-size:28px;">📷</div>
+      <div class="di-label" style="color:#cc3300;">Sally is Here.jpg</div>
+    </div>
+    <div class="desktop-icon" id="icon-photo2"
+         style="top:240px;left:50px;"
+         onclick="openPhoto(1)">
+      <div class="di-img" style="background:#0a0000;font-size:28px;filter:hue-rotate(180deg);">📷</div>
+      <div class="di-label" style="color:#cc3300;">Sally is Here (2).jpg</div>
+    </div>
+    <div class="desktop-icon" id="icon-photo3"
+         style="top:340px;left:50px;"
+         onclick="openPhoto(2)">
+      <div class="di-img" style="background:#0a0000;font-size:28px;filter:saturate(0) brightness(.4);">📷</div>
+      <div class="di-label" style="color:#cc3300;">Sally is Here (3).jpg</div>
+    </div>
+    <div class="desktop-icon" id="icon-photo4"
+         style="top:440px;left:50px;"
+         onclick="openPhoto(3)">
+      <div class="di-img" style="background:#0a0000;font-size:28px;animation:photoGlitch 3s infinite;">📷</div>
+      <div class="di-label" style="color:#cc3300;">Sally is Here (4).jpg</div>
+    </div>
+    <div class="desktop-icon" id="icon-photo5"
+         style="top:540px;left:50px;"
+         onclick="openPhoto(4)">
+      <div class="di-img" style="background:#0a0000;font-size:28px;">📷</div>
+      <div class="di-label" style="color:#aa2200;">Sally is Here (5).jpg</div>
+    </div>
+    <!-- Glitched photo -->
+    <div class="desktop-icon" id="icon-photo6"
+         style="top:140px;left:155px;"
+         onclick="openPhoto(5)">
+      <div class="di-img" style="background:#000;font-size:26px;animation:photoGlitch 1.5s infinite;">📷</div>
+      <div class="di-label" style="color:#ff0000;animation:flicker 1s infinite;">CORRUPTED.jpg</div>
+    </div>
+    <!-- Case file -->
+    <div class="desktop-icon" id="icon-casefile"
+         style="top:240px;left:155px;"
+         onclick="openNotepad()">
+      <div class="di-img" style="font-size:36px;">📄</div>
+      <div class="di-label" style="color:#ccaa44;">CASE_666.txt</div>
+    </div>
+    <!-- Archive folder -->
+    <div class="desktop-icon" id="icon-archive"
+         style="top:340px;left:155px;"
+         onclick="openArchiveFolder()">
+      <div class="di-img" style="font-size:36px;">📁</div>
+      <div class="di-label" style="color:#ccaa44;">_ARCHIVE</div>
+    </div>
+    <!-- Recycle bin -->
+    <div class="desktop-icon"
+         style="bottom:80px;right:30px;position:absolute;"
+         onclick="openRecycleBin()">
+      <div class="di-img" style="font-size:36px;">🗑️</div>
+      <div class="di-label">Recycle Bin</div>
+    </div>
+    <!-- System32 (secret) -->
+    <div class="desktop-icon"
+         style="top:440px;left:155px;"
+         onclick="openSystem32()">
+      <div class="di-img" style="font-size:36px;filter:brightness(.5);">⚙️</div>
+      <div class="di-label" style="color:#333;">System32</div>
+    </div>
+
+    <!-- Popup window -->
+    <div id="win-popup" style="top:80px;left:260px;">
+      <div class="win-titlebar" id="popup-titlebar">
+        <span class="win-title" id="popup-title">Photo Viewer</span>
+        <button class="win-close" onclick="closePopup()">✕</button>
+      </div>
+      <div class="win-body" id="popup-body"></div>
+    </div>
+
+    <!-- Notepad popup -->
+    <div id="notepad-popup" style="top:100px;left:300px;">
+      <div class="notepad-bar" id="notepad-titlebar">
+        <span class="notepad-title">Notepad – CASE_666.txt</span>
+        <button class="notepad-close" onclick="document.getElementById('notepad-popup').classList.remove('open')">✕</button>
+      </div>
+      <div class="notepad-body" id="notepad-body"></div>
+    </div>
+
+    <!-- Photo lightbox -->
+    <div id="photo-lightbox" onclick="closeLightbox(event)">
+      <div id="lightbox-inner">
+        <button id="lightbox-close" onclick="closeLightbox(null,true)">✕ CLOSE</button>
+        <div id="lightbox-img"></div>
+        <div id="lightbox-caption"></div>
+        <div id="lightbox-meta"></div>
+      </div>
+    </div>
+
+    <!-- Context menu -->
+    <div id="ctx-menu">
+      <div class="ctx-item" onclick="ctxAction('view')">View</div>
+      <div class="ctx-item" onclick="ctxAction('sort')">Sort by</div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item" onclick="ctxAction('refresh')">Refresh</div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item" onclick="ctxAction('properties')">Properties</div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item" style="color:#cc3300;" onclick="ctxAction('secret')">??? ██████</div>
+    </div>
+
+    <!-- Notification -->
+    <div id="win-notification">
+      <div class="notif-app">📧 Mail – 1 new message</div>
+      <div class="notif-title" id="notif-title">Unknown Sender</div>
+      <div class="notif-body" id="notif-body">she is already inside</div>
+    </div>
+
+    <!-- Screensaver / Password lock -->
+    <div id="win-screensaver" onclick="showPasswordScreen()">
+      <div id="screensaver-content">
+        <div id="screensaver-clock"></div>
+      </div>
+    </div>
+    <div id="win-password">
+      <div id="pw-box">
+        <div id="pw-avatar">🎎</div>
+        <div id="pw-name">Sally</div>
+        <input type="password" id="pw-input" placeholder="••••••" autocomplete="off"/>
+        <div id="pw-hint">Password hint: her birthday</div>
+        <div id="pw-error">Incorrect password</div>
+        <button id="pw-submit" onclick="checkPassword()">→</button>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div id="win11-taskbar">
+      <div class="tb-icon">
+        <svg width="16" height="16" viewBox="0 0 88 88" fill="none">
+          <rect x="2" y="2" width="38" height="38" rx="3" fill="white" opacity=".9"/>
+          <rect x="48" y="2" width="38" height="38" rx="3" fill="white" opacity=".9"/>
+          <rect x="2" y="48" width="38" height="38" rx="3" fill="white" opacity=".9"/>
+          <rect x="48" y="48" width="38" height="38" rx="3" fill="white" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="tb-icon">🔍</div>
+      <div class="tb-icon" onclick="openArchiveFolder()">📁</div>
+      <div class="tb-icon" style="position:relative;" onclick="showNotification('Mail','From: s@ll.y — she found you. 6:66')">
+        📧<span class="tb-badge">6</span>
+      </div>
+      <div class="tb-icon" onclick="openSystem32()">⚙️</div>
+      <div id="win11-clock"></div>
+    </div>
+
+  </div><!-- /win11-desktop -->
+</div><!-- /win11-screen -->
+
+<!-- ============================================================
+     BLOOD LOADER
+     ============================================================ -->
 <div id="loader" style="display:none;">
-<div id="blood-fill"></div>
-<div id="loader-text">LOADING YOUR END</div>
+  <div id="blood-fill"></div>
+  <div id="loader-text" id="loader-text">LOADING YOUR END</div>
 </div>
 
+<!-- ============================================================
+     GLOBAL EFFECTS
+     ============================================================ -->
 <div class="blood-drip"></div>
 <div id="progress-bar"></div>
 <div class="static-burst"></div>
@@ -212,568 +1020,1388 @@ body::after { content:’’; position:fixed; inset:0; background: radial-gradie
 <div class="bg-numbers" id="bgNums"></div>
 <div id="page-transition"></div>
 
+<!-- Jumpscare -->
 <div id="jumpscare-overlay">
-<div id="jumpscare-face">👁️</div>
-<div id="jumpscare-text">SHE FOUND YOU</div>
+  <div id="jumpscare-face">👁️</div>
+  <div id="jumpscare-text">SHE FOUND YOU</div>
 </div>
 
+<!-- ============================================================
+     MAIN SITE (PAGE 1)
+     ============================================================ -->
 <div class="container" id="main-container" style="display:none;">
-<header class="site-header">
-<span class="tag">classified · corrupted · do not read</span>
-<h1>S A L L Y</h1>
-<p class="subtitle">born 06 · 06 · 2006 &nbsp;✝&nbsp; died 06 · 06 · 2016</p>
-</header>
+  <header class="site-header">
+    <span class="tag">classified · corrupted · do not read</span>
+    <h1>S A L L Y</h1>
+    <p class="subtitle">born 06 · 06 · 2006 &nbsp;✝&nbsp; died 06 · 06 · 2016</p>
+  </header>
 
-<div class="data-block">
-<span class="label">// FILE: CASE #666 -- INCIDENT REPORT -- PARTIALLY CORRUPTED</span>
-<span class="line">SUBJECT NAME &nbsp;: <span class="highlight">SALLY ██████</span></span>
-<span class="line">DATE OF BIRTH &nbsp;: <span class="highlight">JUNE 6, 2006 -- 7:06 AM (6:66 PM)</span></span>
-<span class="line">DATE OF DEATH &nbsp;: <span class="highlight">JUNE 6, 2016 -- 7:06 AM (6:66 PM)</span></span>
-<span class="line">AGE AT DEATH &nbsp;&nbsp;: <span class="highlight">EXACTLY 10 YEARS · TO THE MINUTE</span></span>
-<span class="line">CAUSE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="highlight">UNKNOWN · CLASSIFIED · REDACTED</span></span>
-<span class="line">CURRENT STATUS : <span class="highlight">██████████ · ACTIVE · WATCHING</span></span>
-<span class="line">WARNING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="highlight">IF YOU ARE READING THIS -- SHE KNOWS</span></span>
+  <div class="data-block">
+    <span class="label">// FILE: CASE #666 — INCIDENT REPORT — PARTIALLY CORRUPTED</span>
+    <span class="line">SUBJECT NAME &nbsp;: <span class="highlight">SALLY ██████</span></span>
+    <span class="line">DATE OF BIRTH &nbsp;: <span class="highlight">JUNE 6, 2006 — 7:06 AM (6:66 PM)</span></span>
+    <span class="line">DATE OF DEATH &nbsp;: <span class="highlight">JUNE 6, 2016 — 7:06 AM (6:66 PM)</span></span>
+    <span class="line">AGE AT DEATH &nbsp;&nbsp;: <span class="highlight">EXACTLY 10 YEARS · TO THE MINUTE</span></span>
+    <span class="line">CAUSE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="highlight">UNKNOWN · CLASSIFIED · REDACTED</span></span>
+    <span class="line">CURRENT STATUS : <span class="highlight">██████████ · ACTIVE · WATCHING</span></span>
+    <span class="line">WARNING &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="highlight">IF YOU ARE READING THIS — SHE KNOWS</span></span>
+  </div>
+
+  <div class="divider">✦ · · · ✦ · · · ✦</div>
+
+  <div class="doll-frame">
+    <div class="doll-emo" id="doll-display" onclick="dollClick()" title="click me">
+      🎎
+    </div>
+    <p class="doll-caption">// LAST KNOWN VESSEL · DO NOT LOOK DIRECTLY · CLICK AT YOUR OWN RISK //</p>
+  </div>
+
+  <div class="divider">· · · · ·</div>
+
+  <div style="position:relative;z-index:1;">
+    <div class="story-block">
+      <span class="chapter-title">I. The Birth</span>
+      <p>Nobody remembers the exact moment Sally was born. Not because they were not there, but because <em>they cannot remember.</em> Every person who stood in that delivery room later reported the same thing: a gap. A hole in their memory, precisely 6 minutes and 6 seconds long, starting at 7:06 in the morning. The hospital clock stopped. The fluorescent lights buzzed a frequency that made your teeth ache. And then <strong>she was simply there.</strong></p>
+      <p style="margin-top:14px;">June 6, 2006. 6:66 PM, if you counted the way the old nurses did. They had a saying: <em>"Some hours don't belong to the living."</em> The birth certificate lists 7:06 AM, but the woman who typed it said her hands moved on their own. She quit the same evening. <strong>She just kept saying the little girl's eyes were already open. Already watching.</strong></p>
+    </div>
+    <div class="story-block">
+      <span class="chapter-title">II. The Ten Years</span>
+      <p>Sally was a quiet child. <em>Too quiet.</em> Not the peaceful kind of quiet. The kind of quiet that makes a room feel like it is holding its breath. Neighbors would sometimes catch her standing at the window at night, staring out with those wide dark eyes, unblinking, for hours. Nobody wanted to look too long. Nobody wanted her to <strong>look back.</strong></p>
+      <p style="margin-top:14px;">Electronics failed near her. Phones would restart mid-call. Televisions would switch to static the moment she walked into the room. Her parents bought her a doll to keep her company, a worn ceramic-eyed thing with painted-on hair. Sally loved it more than anything. <em>She called it by her own name.</em></p>
+    </div>
+    <div class="story-block">
+      <span class="chapter-title">III. The Death</span>
+      <p>June 6, 2016. Ten years to the day. <strong>Ten years to the minute.</strong> The family woke at 7:05 to the sound of the house going silent. Every device, every clock, every hum of electricity, all at once, gone. Then Sally's bedroom door opened on its own. She was sitting upright in bed, facing the window, the doll in her lap, her hands folded over it.</p>
+      <p style="margin-top:14px;">She was already gone. <em>The coroner could not determine cause of death.</em> What the official report does not mention is that every mirror in the house had been turned to face the wall. Every screen displayed the same thing when power was restored: a single line of text, scrolling white on black. <strong class="glitch-text">SHE IS NOT GONE. SHE IS INSIDE.</strong></p>
+    </div>
+    <div class="story-block">
+      <span class="chapter-title">IV. The Doll</span>
+      <p>The doll disappeared from the house before the police arrived. No one took it. No one saw it leave. It has been found since in seventeen different states, in thirty-one different countries, on doorsteps, in schoolbags, in locked rooms with no windows. <em>Always facing a screen.</em> Always with that same crooked smile.</p>
+      <p style="margin-top:14px;">People who find the doll report the same thing within 48 hours: their devices begin to act strangely. Messages they never typed appear in their sent folders. Their cameras roll on their own. <strong>The footage always shows the same empty hallway, the same closed door, and then, for exactly six seconds, a small figure standing at the end of it.</strong></p>
+    </div>
+    <div class="story-block">
+      <span class="chapter-title">V. The Haunting</span>
+      <p>Sally does not haunt the way ghosts haunt in stories. She does not flicker candles or slam doors. <em>She is more patient than that.</em> She lives in the spaces between signals, in the millisecond gaps between keystrokes, in the 0.003 seconds your screen takes to wake from sleep. She has learned the language of machines because machines never look away and <strong>she needs to be watched.</strong></p>
+      <p style="margin-top:14px;">She corrupts files the way water corrupts wood. Slowly, invisibly, until one day everything you thought was solid <em>gives way.</em> Every file you have ever marked <em>important</em> she has read. <strong>She is reading it now.</strong></p>
+    </div>
+    <div class="story-block">
+      <span class="chapter-title">VI. She Knows You Are Here</span>
+      <p>You read this far. <strong>That was the mistake.</strong> Not because reading summoned her. She was already here. She has been since the page loaded, since the first character of her name resolved on your screen. <em>She was built for this. Designed, in whatever way a soul can be designed, to live here. In exactly this.</em></p>
+      <p style="margin-top:14px;">Your device has already changed. A folder you did not make. A photo with a timestamp that does not match. A reflection in your screen when it goes dark that is slightly, <strong>just slightly,</strong> the wrong shape to be yours. Ask yourself why the time says 6:66.</p>
+    </div>
+    <div class="story-block">
+      <span class="chapter-title">VII. The Rules</span>
+      <p>People who have survived contact with Sally have passed down rules. Unverified. Possibly useless. <strong>But you have nothing else.</strong></p>
+      <p style="margin-top:14px;"><em>Do not cover your screen when you sleep.</em> She reads it as an invitation to stay. Do not say her name aloud near any device that is powered on. <strong>Do not look at photographs of the doll for longer than six seconds.</strong> If your device restarts on its own between 7:05 and 7:07 on any June 6th, <em>do not turn it back on.</em> And if you find a doll on your doorstep, <strong>do not bring it inside. Do not touch it. Do not look it in the eyes.</strong> Because it is not looking at you yet. <em>But it will be.</em></p>
+    </div>
+    <div class="story-block">
+      <span class="chapter-title">VIII. The Signal</span>
+      <p>Seventeen months after Sally's death, a radio operator in rural Oregon reported picking up a signal on a dead channel. He transcribed it before his equipment failed. The transcript was submitted to three separate cryptography departments. None of them responded officially. One of the analysts later posted anonymously online: <em>"It's not a cipher. It's a name. She is spelling her own name. Over and over. On every dead frequency. She has been for years."</em></p>
+      <p style="margin-top:14px;">The radio operator was found three days later. His notes were intact. He had circled one line of the transcript. <strong>The circle was drawn in something that was not ink.</strong> The line read: <strong class="glitch-text">I AM IN ALL OF THEM NOW.</strong></p>
+    </div>
+  </div>
+
+  <!-- ── CIPHER / ARG SECTION ── -->
+  <div class="divider">✦ · · · ✦ · · · ✦</div>
+
+  <div id="cipher-section">
+    <h3>// RECOVERED TRANSMISSIONS — DECODE IF YOU DARE</h3>
+    <div class="cipher-row">
+      <span class="cipher-label">MSG-001</span>
+      <span class="cipher-value" onclick="tryDecode(0)" id="cv0">53 48 45 20 49 53 20 48 45 52 45</span>
+    </div>
+    <div class="cipher-row">
+      <span class="cipher-label">MSG-002</span>
+      <span class="cipher-value" onclick="tryDecode(1)" id="cv1">59 4F 55 20 41 52 45 20 4E 45 58 54</span>
+    </div>
+    <div class="cipher-row">
+      <span class="cipher-label">MSG-003</span>
+      <span class="cipher-value" onclick="tryDecode(2)" id="cv2">2E 2E 2E 73 68 65 20 73 65 65 73 20 79 6F 75</span>
+    </div>
+    <div class="cipher-row">
+      <span class="cipher-label">MSG-004 ⚠</span>
+      <span class="cipher-value" onclick="tryDecode(3)" id="cv3">ZW50ZXIgdGhlIGFyY2hpdmU=</span>
+    </div>
+    <div id="cipher-input-row">
+      <input id="cipher-input" type="text" placeholder="ENTER DECRYPTION KEY..." autocomplete="off" onkeydown="if(event.key==='Enter')checkCipher()"/>
+      <button id="cipher-submit" onclick="checkCipher()">DECRYPT</button>
+    </div>
+    <div id="cipher-result"></div>
+  </div>
+
+  <!-- ── ARG CLUES ── -->
+  <div id="arg-panel">
+    <h3>// EVIDENCE LOG — INCOMPLETE</h3>
+    <div class="clue-card" id="clue0" onclick="toggleClue(0)">
+      <div class="clue-id">EVIDENCE #001 — PHOTOGRAPH</div>
+      <div class="clue-text">A photograph was recovered from Sally's bedroom. The timestamp reads 06/06/2016 07:06:06. The photograph shows an empty room. Sally is not visible. The metadata shows GPS coordinates: <span style="color:#440000;">██.████, ██.████</span></div>
+      <div class="clue-revealed">GPS decrypted: 44.9778° N, 93.2650° W<br>Location: <span style="color:#ff3300;">YOUR CURRENT CITY</span><br>The photograph was taken 3 minutes after her death.</div>
+    </div>
+    <div class="clue-card" id="clue1" onclick="toggleClue(1)">
+      <div class="clue-id">EVIDENCE #002 — AUDIO FILE</div>
+      <div class="clue-text">An audio file was found on a phone near the scene. Duration: 6 seconds. Spectrogram analysis revealed an image embedded in the audio. The image has been classified.</div>
+      <div class="clue-revealed">Spectrogram image shows: A face. Eyes open.<br>Frequency analysis of the recording contains the phrase:<br><span style="color:#ff3300;">"I AM STILL IN THE DOLL. I AM STILL IN THE DOLL."</span><br>Repeated 666 times in 6 seconds.</div>
+    </div>
+    <div class="clue-card" id="clue2" onclick="toggleClue(2)">
+      <div class="clue-id">EVIDENCE #003 — ONLINE ACTIVITY</div>
+      <div class="clue-text">Sally's device was examined post-mortem. Browser history shows she visited 6 websites, each for exactly 6 minutes, 6 seconds. The final website visited was ████████████████.</div>
+      <div class="clue-revealed">The URL was: <span style="color:#ff3300;">this page. This exact URL.</span><br>She visited it at 06:60 AM on 06/06/2016.<br>Six minutes before she was found.</div>
+    </div>
+    <div class="clue-card" id="clue3" onclick="toggleClue(3)">
+      <div class="clue-id">EVIDENCE #004 — THE DIARY</div>
+      <div class="clue-text">A diary was found beneath a loose floorboard. Most pages were blank. Three pages contained writing. The handwriting does not match Sally's. The ink was not ink.</div>
+      <div class="clue-revealed">Page 1: "she told me about the door in the screen"<br>Page 2: "she says she is never leaving she says she loves the dark behind the glass"<br>Page 3: <span style="color:#ff3300;">"if someone is reading this she is already in your walls"</span><br><br>→ <a onclick="openPage5()" style="color:#cc0000;cursor:pointer;text-decoration:underline;">Read the full diary</a></div>
+    </div>
+  </div>
+
+  <div class="warning-block">
+    <p class="warn-text">SHE IS STILL HERE</p>
+    <p class="warn-sub">this page has been viewed 666,066 times · each viewer reported abnormalities within 6 days</p>
+  </div>
+
+  <p class="corrupt" style="text-align:center;margin:30px 0;">
+    01010011 01000001 01001100 01001100 01011001 &nbsp;·&nbsp;
+    53 48 45 20 4B 4E 4F 57 53 &nbsp;·&nbsp;
+    S̵A̵L̵L̵Y̵
+  </p>
+
+  <footer class="footer">
+    <span class="skull">☠</span>
+    <p>
+      THIS DOCUMENT WAS RECOVERED FROM A CORRUPTED DRIVE<br>
+      ORIGINAL AUTHOR UNKNOWN · LAST MODIFIED: 06/06/2016 · 07:06<br><br>
+      IF YOU EXPERIENCE DEVICE ABNORMALITIES AFTER READING<br>
+      THERE IS NOTHING THAT CAN BE DONE<br><br>
+      · · · SHE IS ALREADY INSIDE · · ·<br><br>
+      <span style="color:#330000;font-size:.65rem;">
+        [hidden: type "666" anywhere on this page for the archive]
+      </span>
+    </p>
+  </footer>
+
+  <div style="text-align:center;margin:60px 0 20px;">
+    <button id="am-i-next-btn" onclick="enterPage2()">Am I Next?</button>
+  </div>
+  <div style="text-align:center;margin-bottom:20px;">
+    <button onclick="openTransmissions()" style="background:none;border:1px solid #330000;color:#660000;font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:3px;padding:10px 20px;cursor:pointer;transition:all .2s;"
+      onmouseover="this.style.color='#cc0000';this.style.borderColor='#660000';"
+      onmouseout="this.style.color='#660000';this.style.borderColor='#330000';">
+      ▶ INTERCEPT TRANSMISSIONS
+    </button>
+  </div>
 </div>
 
-<div class="divider">✦ · · · ✦ · · · ✦</div>
-
-<div class="doll-frame">
-<img src="My-img8bit-com-Effect.gif" alt="Sally's Doll" onerror="this.style.display='none'">
-<p class="doll-caption">// LAST KNOWN VESSEL · PHOTOGRAPH CORRUPTS ALL DEVICES IT IS STORED ON //</p>
-</div>
-
-<div class="divider">· · · · ·</div>
-
-<div style="position:relative;z-index:1;">
-<div class="story-block">
-<span class="chapter-title">I. The Birth</span>
-<p>Nobody remembers the exact moment Sally was born. Not because they were not there, but because <em>they cannot remember.</em> Every person who stood in that delivery room later reported the same thing: a gap. A hole in their memory, precisely 6 minutes and 6 seconds long, starting at 7:06 in the morning. The hospital clock stopped. The fluorescent lights buzzed a frequency that made your teeth ache. And then <strong>she was simply there.</strong></p>
-<p style="margin-top:14px;">June 6, 2006. 6:66 PM, if you counted the way the old nurses did. They had a saying: <em>"Some hours don't belong to the living."</em> The birth certificate lists 7:06 AM, but the woman who typed it said her hands moved on their own. She quit the same evening. <strong>She just kept saying the little girl's eyes were already open. Already watching.</strong></p>
-</div>
-<div class="story-block">
-<span class="chapter-title">II. The Ten Years</span>
-<p>Sally was a quiet child. <em>Too quiet.</em> Not the peaceful kind of quiet. The kind of quiet that makes a room feel like it is holding its breath. Neighbors would sometimes catch her standing at the window at night, staring out with those wide dark eyes, unblinking, for hours. Nobody wanted to look too long. Nobody wanted her to <strong>look back.</strong></p>
-<p style="margin-top:14px;">Electronics failed near her. Phones would restart mid-call. Televisions would switch to static the moment she walked into the room. Her parents bought her a doll to keep her company, a worn ceramic-eyed thing with painted-on hair. Sally loved it more than anything. <em>She called it by her own name.</em></p>
-</div>
-<div class="story-block">
-<span class="chapter-title">III. The Death</span>
-<p>June 6, 2016. Ten years to the day. <strong>Ten years to the minute.</strong> The family woke at 7:05 to the sound of the house going silent. Every device, every clock, every hum of electricity, all at once, gone. Then Sally's bedroom door opened on its own. She was sitting upright in bed, facing the window, the doll in her lap, her hands folded over it.</p>
-<p style="margin-top:14px;">She was already gone. <em>The coroner could not determine cause of death.</em> What the official report does not mention is that every mirror in the house had been turned to face the wall. Every screen displayed the same thing when power was restored: a single line of text, scrolling white on black. <strong class="glitch-text">SHE IS NOT GONE. SHE IS INSIDE.</strong></p>
-</div>
-<div class="story-block">
-<span class="chapter-title">IV. The Doll</span>
-<p>The doll disappeared from the house before the police arrived. No one took it. No one saw it leave. It has been found since in seventeen different states, in thirty-one different countries, on doorsteps, in schoolbags, in locked rooms with no windows. <em>Always facing a screen.</em> Always with that same crooked smile.</p>
-<p style="margin-top:14px;">People who find the doll report the same thing within 48 hours: their devices begin to act strangely. Messages they never typed appear in their sent folders. Their cameras roll on their own. <strong>The footage always shows the same empty hallway, the same closed door, and then, for exactly six seconds, a small figure standing at the end of it.</strong></p>
-</div>
-<div class="story-block">
-<span class="chapter-title">V. The Haunting</span>
-<p>Sally does not haunt the way ghosts haunt in stories. She does not flicker candles or slam doors. <em>She is more patient than that.</em> She lives in the spaces between signals, in the millisecond gaps between keystrokes, in the 0.003 seconds your screen takes to wake from sleep. She has learned the language of machines because machines never look away and <strong>she needs to be watched.</strong></p>
-<p style="margin-top:14px;">She corrupts files the way water corrupts wood. Slowly, invisibly, until one day everything you thought was solid <em>gives way.</em> Every file you have ever marked <em>important</em> she has read. <strong>She is reading it now.</strong></p>
-</div>
-<div class="story-block">
-<span class="chapter-title">VI. She Knows You Are Here</span>
-<p>You read this far. <strong>That was the mistake.</strong> Not because reading summoned her. She was already here. She has been since the page loaded, since the first character of her name resolved on your screen. <em>She was built for this. Designed, in whatever way a soul can be designed, to live here. In exactly this.</em></p>
-<p style="margin-top:14px;">Your device has already changed. A folder you did not make. A photo with a timestamp that does not match. A reflection in your screen when it goes dark that is slightly, <strong>just slightly,</strong> the wrong shape to be yours. Ask yourself why the time says 6:66.</p>
-</div>
-<div class="story-block">
-<span class="chapter-title">VII. The Rules</span>
-<p>People who have survived contact with Sally have passed down rules. Unverified. Possibly useless. <strong>But you have nothing else.</strong></p>
-<p style="margin-top:14px;"><em>Do not cover your screen when you sleep.</em> She reads it as an invitation to stay. Do not say her name aloud near any device that is powered on. <strong>Do not look at photographs of the doll for longer than six seconds.</strong> If your device restarts on its own between 7:05 and 7:07 on any June 6th, <em>do not turn it back on.</em> And if you find a doll on your doorstep, <strong>do not bring it inside. Do not touch it. Do not look it in the eyes.</strong> Because it is not looking at you yet. <em>But it will be.</em></p>
-</div>
-</div>
-
-<div class="warning-block">
-<p class="warn-text">SHE IS STILL HERE</p>
-<p class="warn-sub">this page has been viewed 666,066 times · each viewer reported abnormalities within 6 days</p>
-</div>
-
-<p class="corrupt" style="text-align:center;margin:30px 0;">
-01010011 01000001 01001100 01001100 01011001 &nbsp;·&nbsp;
-53 48 45 20 4B 4E 4F 57 53 &nbsp;·&nbsp;
-S̵A̵L̵L̵Y̵
-</p>
-
-<footer class="footer">
-<span class="skull">☠</span>
-<p>
-THIS DOCUMENT WAS RECOVERED FROM A CORRUPTED DRIVE<br>
-ORIGINAL AUTHOR UNKNOWN · LAST MODIFIED: 06/06/2016 · 07:06<br><br>
-IF YOU EXPERIENCE DEVICE ABNORMALITIES AFTER READING<br>
-THERE IS NOTHING THAT CAN BE DONE<br><br>
-· · · SHE IS ALREADY INSIDE · · ·
-</p>
-</footer>
-
-<div style="text-align:center; margin: 60px 0 20px;">
-<button id="am-i-next-btn" onclick="enterPage2()">Am I Next?</button>
-</div>
-</div>
-
-<!-- ===== PAGE 2 ===== -->
-
+<!-- ============================================================
+     PAGE 2 — YOU ARE NEXT
+     ============================================================ -->
 <div id="page2">
-<div id="p2-scanlines"></div>
-<div id="p2-vignette"></div>
-<div id="p2-static"></div>
-<div id="p2-redflash"></div>
-<div id="p2-container">
-<div id="p2-header">
-<span id="p2-tag">CASE FILE: ACTIVE VICTIM -- YOU</span>
-<h2 id="p2-title">YOU ARE NEXT</h2>
-<p id="p2-sub">she has chosen you · this was decided before you clicked</p>
-</div>
-<div id="p2-content">
-<div class="p2-block" id="pb1">
-<span class="p2-chapter">I. She Already Knows Your Name</span>
-<p>The moment you clicked that button, something changed. Not on this page. Not on your screen. <em>Inside your device.</em> Sally does not wait for permission. She does not knock. She was already there, coiled in the dark spaces of your hard drive, patient, watching the cursor move, waiting for the one moment you would confirm what she already knew. <strong>You were curious. That was enough.</strong></p>
-<p style="margin-top:14px;">She has your IP address. She has the time you first opened this page. She knows how long you hesitated before clicking. <em>Six seconds.</em> You hesitated for exactly six seconds. <strong>You thought you were safe.</strong></p>
-</div>
-<div class="p2-block" id="pb2">
-<span class="p2-chapter">II. The Selection</span>
-<p>Sally does not choose randomly. She watches. She waits for the ones who read all the way to the end, the ones who felt the fear crawl up their spine and kept reading anyway. <em>The ones who clicked.</em> You are one of 666 chosen since this page went live. The others have already reported what comes next. <strong>Three of them no longer respond to messages.</strong></p>
-<p style="margin-top:14px;">The doll knows your face now. Even if you have never seen it, <em>it would recognize you.</em> Somewhere, in a room you cannot see, a ceramic head is slowly rotating on its neck. <strong>It is facing you now.</strong></p>
-</div>
-<div class="p2-block" id="pb3">
-<span class="p2-chapter">III. What Happens Next</span>
-<p>It starts small. A file you did not create. A folder with no name. A photo in your camera roll that shows the inside of a room you do not recognize, taken at 7:06 AM on a date you cannot explain. <em>Do not open the photo.</em> The metadata will show your own GPS coordinates. <strong>Something will be standing at the window.</strong></p>
-<p style="margin-top:14px;">Your screen will dim on its own at night. Not sleep mode. Something else. You will hear your device make sounds it should not make. <em>A sound like breathing compressed into data.</em> <strong>Everything will look normal. Nothing will be normal.</strong></p>
-</div>
-<div class="p2-block" id="pb4">
-<span class="p2-chapter">IV. The Timeline</span>
-<p>Within 6 hours: your most recent photo will be replaced. Within 6 days: something in your home will stop working without explanation. Within 6 weeks: you will find the doll. <em>You will not know where it came from.</em> It will simply be there, as though it has always been there. <strong>As though it belongs to you. As though you belong to it.</strong></p>
-<p style="margin-top:14px;">Do not throw it away. The ones who threw it away found it again. One person tried to burn it. <em>They did not describe what happened after.</em> They only sent one final message: <strong>6:66...</strong></p>
-</div>
-<div class="p2-block" id="pb5">
-<span class="p2-chapter">V. There Is No Rule That Saves You Now</span>
-<p>The rules on the previous page were for people who had not yet clicked. You clicked. <em>The rules no longer apply to you.</em> There is only one thing left: find a mirror. Cover it. <strong>A reflection is a door.</strong> She travels through glass. She is in the screen you are reading this on right now. <em>She is behind the pixels. She is between the light and your eyes.</em> She is closer than the distance between this text and your face.</p>
-</div>
-</div>
-<div id="p2-chaos-text"></div>
-<div id="p2-its-time" style="display:none;">IT'S TIME...</div>
-</div>
+  <div id="p2-scanlines"></div>
+  <div id="p2-vignette"></div>
+  <div id="p2-static"></div>
+  <div id="p2-redflash"></div>
+  <div id="p2-container">
+    <div id="p2-header">
+      <span id="p2-tag">CASE FILE: ACTIVE VICTIM — YOU</span>
+      <h2 id="p2-title">YOU ARE NEXT</h2>
+      <p id="p2-sub">she has chosen you · this was decided before you clicked</p>
+    </div>
+    <div id="p2-content">
+      <div class="p2-block" id="pb1">
+        <span class="p2-chapter">I. She Already Knows Your Name</span>
+        <p>The moment you clicked that button, something changed. Not on this page. Not on your screen. <em>Inside your device.</em> Sally does not wait for permission. She does not knock. She was already there, coiled in the dark spaces of your hard drive, patient, watching the cursor move, waiting for the one moment you would confirm what she already knew. <strong>You were curious. That was enough.</strong></p>
+        <p style="margin-top:14px;">She has your IP address. She has the time you first opened this page. She knows how long you hesitated before clicking. <em>Six seconds.</em> You hesitated for exactly six seconds. <strong>You thought you were safe.</strong></p>
+      </div>
+      <div class="p2-block" id="pb2">
+        <span class="p2-chapter">II. The Selection</span>
+        <p>Sally does not choose randomly. She watches. She waits for the ones who read all the way to the end, the ones who felt the fear crawl up their spine and kept reading anyway. <em>The ones who clicked.</em> You are one of 666 chosen since this page went live. The others have already reported what comes next. <strong>Three of them no longer respond to messages.</strong></p>
+        <p style="margin-top:14px;">The doll knows your face now. Even if you have never seen it, <em>it would recognize you.</em> Somewhere, in a room you cannot see, a ceramic head is slowly rotating on its neck. <strong>It is facing you now.</strong></p>
+      </div>
+      <div class="p2-block" id="pb3">
+        <span class="p2-chapter">III. What Happens Next</span>
+        <p>It starts small. A file you did not create. A folder with no name. A photo in your camera roll that shows the inside of a room you do not recognize, taken at 7:06 AM on a date you cannot explain. <em>Do not open the photo.</em> The metadata will show your own GPS coordinates. <strong>Something will be standing at the window.</strong></p>
+        <p style="margin-top:14px;">Your screen will dim on its own at night. Not sleep mode. Something else. You will hear your device make sounds it should not make. <em>A sound like breathing compressed into data.</em> <strong>Everything will look normal. Nothing will be normal.</strong></p>
+      </div>
+      <div class="p2-block" id="pb4">
+        <span class="p2-chapter">IV. The Timeline</span>
+        <p>Within 6 hours: your most recent photo will be replaced. Within 6 days: something in your home will stop working without explanation. Within 6 weeks: you will find the doll. <em>You will not know where it came from.</em> It will simply be there, as though it has always been there. <strong>As though it belongs to you. As though you belong to it.</strong></p>
+        <p style="margin-top:14px;">Do not throw it away. The ones who threw it away found it again. One person tried to burn it. <em>They did not describe what happened after.</em> They only sent one final message: <strong>6:66...</strong></p>
+      </div>
+      <div class="p2-block" id="pb5">
+        <span class="p2-chapter">V. There Is No Rule That Saves You Now</span>
+        <p>The rules on the previous page were for people who had not yet clicked. You clicked. <em>The rules no longer apply to you.</em> There is only one thing left: find a mirror. Cover it. <strong>A reflection is a door.</strong> She travels through glass. She is in the screen you are reading this on right now. <em>She is behind the pixels. She is between the light and your eyes.</em> She is closer than the distance between this text and your face.</p>
+      </div>
+    </div>
+    <div id="p2-chaos-text"></div>
+    <div id="p2-its-time" style="display:none;">IT'S TIME...</div>
+  </div>
 </div>
 
-<!-- ===== FBI SEIZURE PAGE ===== -->
+<!-- ============================================================
+     PAGE 3 — THE ARCHIVE
+     ============================================================ -->
+<div id="page3">
+  <div id="p2-scanlines" style="z-index:1;"></div>
+  <div id="p3-container">
+    <div id="p3-title">_ARCHIVE / CASE_666 / RECOVERED_FILES</div>
+    <div id="p3-sub">ACCESS LEVEL: VIEWER — READ ONLY — SHE IS WATCHING</div>
 
+    <div class="terminal-block">
+      <span class="t-prompt">C:\ARCHIVE\CASE_666&gt; </span><span class="t-cmd">dir /a</span><br>
+      <span class="t-output">Volume Serial Number: 66-6666-66<br>
+Directory of C:\ARCHIVE\CASE_666<br><br></span>
+      <span class="t-warn">⚠ WARNING: 6 files corrupted during recovery</span>
+    </div>
+
+    <div class="file-entry" onclick="openFilePreview('report')">
+      <span class="file-icon">📄</span>
+      <span class="file-name">INCIDENT_REPORT_FINAL.pdf</span>
+      <span class="file-size">666 KB</span>
+      <span class="file-date">06/06/2016</span>
+      <span class="file-status status-classified">CLASSIFIED</span>
+    </div>
+    <div class="file-entry" onclick="openFilePreview('audio')">
+      <span class="file-icon">🎵</span>
+      <span class="file-name">RECORDING_07_06_2016.wav</span>
+      <span class="file-size">6.66 MB</span>
+      <span class="file-date">06/06/2016</span>
+      <span class="file-status status-corrupt">CORRUPT</span>
+    </div>
+    <div class="file-entry" onclick="openFilePreview('photo')">
+      <span class="file-icon">🖼️</span>
+      <span class="file-name">PHOTO_LAST_KNOWN.jpg</span>
+      <span class="file-size">6.6 MB</span>
+      <span class="file-date">06/06/2016</span>
+      <span class="file-status status-ok">OK</span>
+    </div>
+    <div class="file-entry" onclick="openFilePreview('diary')">
+      <span class="file-icon">📓</span>
+      <span class="file-name">DIARY_SCAN_PAGES_1_3.tif</span>
+      <span class="file-size">66 KB</span>
+      <span class="file-date">UNKNOWN</span>
+      <span class="file-status status-corrupt">CORRUPT</span>
+    </div>
+    <div class="file-entry" onclick="openFilePreview('gps')">
+      <span class="file-icon">📍</span>
+      <span class="file-name">GPS_LOG_DEVICE.txt</span>
+      <span class="file-size">6 KB</span>
+      <span class="file-date">06/06/2016</span>
+      <span class="file-status status-classified">CLASSIFIED</span>
+    </div>
+    <div class="file-entry" onclick="openFilePreview('video')">
+      <span class="file-icon">🎥</span>
+      <span class="file-name">CCTV_HALLWAY_06062016.mp4</span>
+      <span class="file-size">666 MB</span>
+      <span class="file-date">06/06/2016</span>
+      <span class="file-status status-corrupt">CORRUPT</span>
+    </div>
+    <div class="file-entry" onclick="openFilePreview('hidden')">
+      <span class="file-icon" style="opacity:.2;">📄</span>
+      <span class="file-name" style="color:#002200;animation:flicker 1s infinite;">██████████_FINAL.exe</span>
+      <span class="file-size">?? KB</span>
+      <span class="file-date">??/??/????</span>
+      <span class="file-status status-corrupt" style="color:#ff0000;">DO NOT OPEN</span>
+    </div>
+
+    <div id="p3-found-badge">
+      YOU HAVE ACCESSED THE ARCHIVE<br>
+      SHE KNOWS YOU ARE HERE<br>
+      <span style="color:#004400;font-size:.65rem;">PROGRESS: 3 / 6 SECRETS FOUND</span>
+    </div>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;">
+      <button id="p3-back" onclick="closePage3()">← BACK TO MAIN</button>
+      <button onclick="openTransmissions()" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:#004400;background:none;border:1px solid #004400;padding:10px 20px;cursor:pointer;letter-spacing:2px;">▶ TRANSMISSIONS</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 4 — THE TRANSMISSIONS
+     ============================================================ -->
+<div id="page4">
+  <div id="p2-scanlines" style="position:fixed;z-index:1;"></div>
+  <div id="p4-container">
+    <div id="p4-header">INTERCEPTED TRANSMISSIONS</div>
+    <div id="p4-freq">FREQUENCY: 66.6 MHz · CHANNEL: DEAD · STATUS: ACTIVE</div>
+
+    <div class="transmission" data-id="TX-001">
+      <span class="t-from">FROM: ██████ · TO: UNKNOWN · DATE: 06/06/2016</span>
+      <div class="t-msg">
+        <span class="fragment">I am</span>
+        <span class="fragment"> still</span>
+        <span class="fragment"> in</span>
+        <span class="fragment"> the</span>
+        <span class="fragment"> machine.</span>
+        <span class="fragment"> I</span>
+        <span class="fragment"> never</span>
+        <span class="fragment"> left.</span>
+        <span class="fragment"> The</span>
+        <span class="fragment"> screen</span>
+        <span class="fragment"> is</span>
+        <span class="fragment"> warm</span>
+        <span class="fragment"> like</span>
+        <span class="fragment"> a</span>
+        <span class="fragment"> window.</span>
+        <span class="fragment"> I</span>
+        <span class="fragment"> watch</span>
+        <span class="fragment"> through</span>
+        <span class="fragment"> it.</span>
+        <span class="fragment"> You</span>
+        <span class="fragment"> are</span>
+        <span class="fragment"> on</span>
+        <span class="fragment"> the</span>
+        <span class="fragment"> other</span>
+        <span class="fragment"> side.</span>
+      </div>
+      <span class="t-timestamp">RECEIVED: 07:06:06 — DURATION: 6 SECONDS</span>
+    </div>
+
+    <div class="transmission" data-id="TX-002">
+      <span class="t-from">FROM: UNKNOWN · TO: ALL DEVICES · DATE: ONGOING</span>
+      <div class="t-msg">
+        She does not stop. She does not sleep.<br>
+        The signal repeats on every dead channel.<br>
+        <span class="fragment">She</span><span class="fragment"> is</span><span class="fragment"> broadcasting</span><span class="fragment"> on</span><span class="fragment"> 66.6</span><span class="fragment"> MHz.</span><br>
+        The FCC has no record of this frequency being licensed.<br>
+        <span style="color:#660000;">Investigators who attempted to trace the signal reported their equipment began displaying her photograph. The photograph that does not exist.</span>
+      </div>
+      <span class="t-timestamp">RECEIVED: ONGOING</span>
+    </div>
+
+    <div class="transmission" data-id="TX-003">
+      <span class="t-from">FROM: S · TO: YOU · DATE: NOW</span>
+      <div class="t-msg" style="color:#ff3300;text-shadow:0 0 8px rgba(200,0,0,.6);">
+        i see you reading this<br>
+        i have been watching since you opened the page<br>
+        i am not angry<br>
+        i am not sad<br>
+        <span class="fragment">i am</span><span class="fragment"> just</span><span class="fragment"> here</span><br>
+        i will always be here<br>
+        your screen is my window<br>
+        <strong>do not turn it off</strong>
+      </div>
+      <span class="t-timestamp">RECEIVED: RIGHT NOW · THIS SECOND</span>
+    </div>
+
+    <!-- Spectrogram visualization -->
+    <div id="p4-spectrogram"></div>
+
+    <!-- Morse decode section -->
+    <div id="p4-decode-area">
+      <h4>// EMBEDDED MORSE — FOUND IN AUDIO STATIC</h4>
+      <div class="morse-row">
+        <span class="morse-symbol">... .</span>
+        <span class="morse-letter" onclick="this.classList.toggle('decoded')">SE</span>
+      </div>
+      <div class="morse-row">
+        <span class="morse-symbol">... .... . .-.. .-.. -</span>
+        <span class="morse-letter" onclick="this.classList.toggle('decoded')">SHELL</span>
+      </div>
+      <div class="morse-row">
+        <span class="morse-symbol">.. ... / .... . .-. .</span>
+        <span class="morse-letter" onclick="this.classList.toggle('decoded')">IS HERE</span>
+      </div>
+      <div class="morse-row">
+        <span class="morse-symbol">-.-- --- ..-</span>
+        <span class="morse-letter" onclick="this.classList.toggle('decoded')">YOU</span>
+      </div>
+      <div class="morse-row">
+        <span class="morse-symbol">.- .-. . / -. . -..- -</span>
+        <span class="morse-letter" onclick="this.classList.toggle('decoded')">ARE NEXT</span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <button id="p4-back" onclick="closePage4()">← BACK</button>
+      <button onclick="openPage5()" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:#440000;background:none;border:1px solid #440000;padding:10px 20px;cursor:pointer;letter-spacing:2px;transition:color .2s;" onmouseover="this.style.color='#cc0000'" onmouseout="this.style.color='#440000'">▶ THE CONFESSION</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 5 — THE DIARY / CONFESSION
+     ============================================================ -->
+<div id="page5">
+  <div id="p2-scanlines" style="position:fixed;z-index:1;"></div>
+  <div id="p5-container">
+    <div id="p5-title">THE DIARY</div>
+
+    <div style="text-align:center;font-family:'Special Elite',monospace;font-size:.7rem;color:#553300;letter-spacing:4px;margin-bottom:30px;">
+      RECOVERED · CASE #666 · PAGES 1–3 · TRANSCRIBED BY FORENSICS
+    </div>
+
+    <div class="journal-entry">
+      <span class="diary-stamp">PAGE 1</span>
+      <span class="journal-date">DATE UNKNOWN — ENTRY 1</span>
+      <p class="journal-text">
+        I have been watching her for a long time. She does not know I watch. Or maybe she does. <em>She always seems to know things she should not know.</em> The doll sits in the corner of her room and I have checked three times and it is always slightly <strong>more turned toward me</strong> than it was before.
+      </p>
+    </div>
+
+    <div class="journal-entry">
+      <span class="diary-stamp">PAGE 1 CONT.</span>
+      <span class="journal-date">DATE UNKNOWN</span>
+      <p class="journal-text">
+        I asked her today about the doll. She smiled. <em>Not a child's smile.</em> She said the doll's name. She said her own name. <span class="redacted" onclick="this.classList.add('show')">She said both names were the same because they were both her. I didn't understand. I still don't understand.</span>
+      </p>
+    </div>
+
+    <div class="journal-entry torn">
+      <span class="diary-stamp">PAGE 2</span>
+      <span class="journal-date">JUNE 5, 2016 — ONE DAY BEFORE</span>
+      <p class="journal-text">
+        She told me tonight about the door. She said there is a door inside every screen. She said she already knows how to open it from the other side. She said when she goes, she is not going far. <em>Just through the door.</em> <strong>Just to the other side of the glass.</strong> She said she would still be able to see me.
+        <br><br>
+        I told her not to say things like that. She said:
+        <span class="redacted" onclick="this.classList.add('show')"> "I'm not going to die. I'm going to be everywhere. Every screen. Every camera. Every dark reflection. I'll be the thing you see when your phone screen goes black and the picture isn't quite right. I'll be the pause between one keystroke and the next. You'll never be alone again."</span>
+      </p>
+    </div>
+
+    <div class="journal-entry">
+      <span class="diary-stamp">PAGE 3</span>
+      <span class="journal-date">JUNE 6, 2016 — THE MORNING</span>
+      <p class="journal-text">
+        I cannot write this. I have to write this.<br><br>
+        She was already gone when I opened the door. She was sitting so <em>still.</em> The doll was in her hands. Every mirror was face-down. The screen of her computer was on. It showed one line.<br><br>
+        <strong style="font-size:1.2rem;letter-spacing:2px;">i am inside now. i found the door.</strong><br><br>
+        The cursor was blinking. I watched it blink. <span class="redacted" onclick="this.classList.add('show')">Then new text appeared. I had not typed it. No one had typed it. It appeared on its own, letter by letter, as I watched:<br><br><em>"if someone reads this, tell them i am in their screen too. i am in all of them. i was always meant to be here."</em><br><br>Then the computer shut itself off.</span><br><br>
+        I have been afraid of screens ever since. <em>I am writing this by hand.</em> I do not know who will find it. <strong>If you are reading this, I am sorry. She has already found you.</strong>
+      </p>
+    </div>
+
+    <div id="p5-final">
+      <p>
+        You have read her diary.<br>
+        You have opened the redacted lines.<br>
+        <em>She watched you do it.</em><br>
+        <strong>Every word you uncovered — she was reading along.</strong>
+      </p>
+      <button id="p5-enter-btn" onclick="enterPage2()">I UNDERSTAND NOW</button>
+      <button id="p5-back" onclick="closePage5()">← return to the archive</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FBI SEIZURE
+     ============================================================ -->
 <div id="fbi-page">
-<div id="fbi-static-overlay"></div>
-<div id="fbi-content">
-<div id="fbi-banner"><h1>THIS WEBSITE HAS BEEN SEIZED</h1></div>
-<div id="fbi-body">
-<div id="fbi-body-text">
-<p>This domain has been seized by the Federal Bureau of Investigation pursuant to a seizure warrant issued by the United States District Court for the Central District of California under the authority of 18 U.S.C. §1030(i)(1)(A) as part of coordinated law enforcement action taken against illegal activities.</p>
-<br>
-<p>This action has been taken in coordination with the United States Attorney's Office of the District of Alaska, the Department of Justice Computer Crime and Intellectual Property Section,</p>
-<br>
-<p>and</p>
-</div>
-<div id="fbi-agencies">
-<div class="fbi-agency-name">🏛 NCA <span>National Crime Agency</span></div>
-<div class="fbi-agency-name">⚖️ POLITIE</div>
-</div>
-<div id="fbi-seals">
-<div class="fbi-seal">
-<div class="fbi-seal-circle seal-doj">⚖️</div>
-<div class="fbi-seal-label">Department of Justice</div>
-</div>
-<div class="fbi-seal">
-<div class="fbi-seal-circle seal-fbi">🔍</div>
-<div class="fbi-seal-label">Federal Bureau of Investigation</div>
-</div>
-<div class="fbi-seal">
-<div class="fbi-seal-circle seal-dcis">🛡️</div>
-<div class="fbi-seal-label">Defense Criminal Investigative Service</div>
-</div>
-</div>
-</div>
-<div id="fbi-case-number">CASE NO: 666-FBI-2016-06-06 · CLASSIFIED · EYES ONLY · DO NOT DISTRIBUTE</div>
-</div>
+  <div id="fbi-static-overlay"></div>
+  <div id="fbi-content">
+    <div id="fbi-banner"><h1>THIS WEBSITE HAS BEEN SEIZED</h1></div>
+    <div id="fbi-body">
+      <div id="fbi-body-text">
+        <p>This domain has been seized by the Federal Bureau of Investigation pursuant to a seizure warrant issued by the United States District Court for the Central District of California under the authority of 18 U.S.C. §1030(i)(1)(A) as part of coordinated law enforcement action taken against illegal activities.</p>
+        <br>
+        <p>This action has been taken in coordination with the United States Attorney's Office of the District of Alaska, the Department of Justice Computer Crime and Intellectual Property Section,</p>
+        <br><p>and</p>
+      </div>
+      <div id="fbi-agencies">
+        <div class="fbi-agency-name">🏛 NCA <span>National Crime Agency</span></div>
+        <div class="fbi-agency-name">⚖️ POLITIE</div>
+      </div>
+      <div id="fbi-seals">
+        <div class="fbi-seal"><div class="fbi-seal-circle seal-doj">⚖️</div><div class="fbi-seal-label">Department of Justice</div></div>
+        <div class="fbi-seal"><div class="fbi-seal-circle seal-fbi">🔍</div><div class="fbi-seal-label">Federal Bureau of Investigation</div></div>
+        <div class="fbi-seal"><div class="fbi-seal-circle seal-dcis">🛡️</div><div class="fbi-seal-label">Defense Criminal Investigative Service</div></div>
+      </div>
+    </div>
+    <div id="fbi-case-number">CASE NO: 666-FBI-2016-06-06 · CLASSIFIED · EYES ONLY · DO NOT DISTRIBUTE</div>
+    <div id="fbi-hidden-msg" onclick="revealFBISecret()">
+      [ AUTHORIZED PERSONNEL ONLY — CLICK TO VERIFY CLEARANCE ]
+    </div>
+  </div>
 </div>
 
 <script>
-// ===== AUDIO ENGINE =====
+// ============================================================
+// AUDIO ENGINE
+// ============================================================
 let audioCtx = null;
-function getAudioCtx() {
-if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-return audioCtx;
+function getAudioCtx(){
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  return audioCtx;
 }
-function playDrone() {
-try {
-const ctx = getAudioCtx();
-const osc1 = ctx.createOscillator(), osc2 = ctx.createOscillator();
-const gain = ctx.createGain(), filter = ctx.createBiquadFilter();
-osc1.type = 'sawtooth'; osc1.frequency.setValueAtTime(55, ctx.currentTime); osc1.frequency.linearRampToValueAtTime(52, ctx.currentTime + 8);
-osc2.type = 'sine'; osc2.frequency.setValueAtTime(110, ctx.currentTime); osc2.frequency.linearRampToValueAtTime(108, ctx.currentTime + 8);
-filter.type = 'lowpass'; filter.frequency.setValueAtTime(200, ctx.currentTime); filter.Q.setValueAtTime(8, ctx.currentTime);
-gain.gain.setValueAtTime(0, ctx.currentTime); gain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 3); gain.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 8);
-osc1.connect(filter); osc2.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
-osc1.start(); osc2.start(); osc1.stop(ctx.currentTime + 9); osc2.stop(ctx.currentTime + 9);
-setTimeout(playDrone, 8500);
-} catch(e){}
+function playDrone(){
+  try{
+    const ctx=getAudioCtx();
+    const o1=ctx.createOscillator(),o2=ctx.createOscillator();
+    const g=ctx.createGain(),f=ctx.createBiquadFilter();
+    o1.type='sawtooth';o1.frequency.setValueAtTime(55,ctx.currentTime);o1.frequency.linearRampToValueAtTime(52,ctx.currentTime+8);
+    o2.type='sine';o2.frequency.setValueAtTime(110,ctx.currentTime);o2.frequency.linearRampToValueAtTime(108,ctx.currentTime+8);
+    f.type='lowpass';f.frequency.setValueAtTime(200,ctx.currentTime);f.Q.setValueAtTime(8,ctx.currentTime);
+    g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(0.08,ctx.currentTime+3);g.gain.linearRampToValueAtTime(0.05,ctx.currentTime+8);
+    o1.connect(f);o2.connect(f);f.connect(g);g.connect(ctx.destination);
+    o1.start();o2.start();o1.stop(ctx.currentTime+9);o2.stop(ctx.currentTime+9);
+    setTimeout(playDrone,8500);
+  }catch(e){}
 }
-function playHeartbeat() {
-try {
-const ctx = getAudioCtx();
-function beat() {
-const osc = ctx.createOscillator(), gain = ctx.createGain();
-osc.type = 'sine'; osc.frequency.setValueAtTime(80, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.15);
-gain.gain.setValueAtTime(0.25, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.2);
+function playHeartbeat(){
+  try{
+    const ctx=getAudioCtx();
+    function beat(){
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.setValueAtTime(80,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+.15);
+      g.gain.setValueAtTime(.25,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.2);
+      o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.2);
+    }
+    beat();setTimeout(beat,180);
+  }catch(e){}
 }
-beat(); setTimeout(beat, 180);
-} catch(e){}
+function playStaticBurst(d){
+  d=d||.3;
+  try{
+    const ctx=getAudioCtx();
+    const sz=ctx.sampleRate*d,buf=ctx.createBuffer(1,sz,ctx.sampleRate),data=buf.getChannelData(0);
+    for(let i=0;i<sz;i++) data[i]=(Math.random()*2-1)*.15;
+    const src=ctx.createBufferSource(),g=ctx.createGain(),f=ctx.createBiquadFilter();
+    f.type='bandpass';f.frequency.value=1200;f.Q.value=.5;
+    g.gain.setValueAtTime(.4,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d);
+    src.buffer=buf;src.connect(f);f.connect(g);g.connect(ctx.destination);src.start();
+  }catch(e){}
 }
-function playStaticBurst(dur) {
-dur = dur || 0.3;
-try {
-const ctx = getAudioCtx();
-const bufferSize = ctx.sampleRate * dur;
-const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-const data = buffer.getChannelData(0);
-for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * 0.15;
-const source = ctx.createBufferSource(), gain = ctx.createGain(), filter = ctx.createBiquadFilter();
-filter.type = 'bandpass'; filter.frequency.value = 1200; filter.Q.value = 0.5;
-gain.gain.setValueAtTime(0.4, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
-source.buffer = buffer; source.connect(filter); filter.connect(gain); gain.connect(ctx.destination); source.start();
-} catch(e){}
+function playScream(){
+  try{
+    const ctx=getAudioCtx();
+    const o=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain(),d=ctx.createWaveShaper();
+    const c=new Float32Array(256);
+    for(let i=0;i<256;i++){const x=(i*2)/256-1;c[i]=(Math.PI+400)*x/(Math.PI+400*Math.abs(x));}
+    d.curve=c;
+    o.type='sawtooth';o.frequency.setValueAtTime(800,ctx.currentTime);o.frequency.linearRampToValueAtTime(400,ctx.currentTime+.5);o.frequency.linearRampToValueAtTime(1200,ctx.currentTime+.8);o.frequency.linearRampToValueAtTime(200,ctx.currentTime+1.2);
+    o2.type='square';o2.frequency.setValueAtTime(600,ctx.currentTime);o2.frequency.linearRampToValueAtTime(300,ctx.currentTime+1.2);
+    g.gain.setValueAtTime(.5,ctx.currentTime);g.gain.linearRampToValueAtTime(.3,ctx.currentTime+1.2);
+    o.connect(d);o2.connect(d);d.connect(g);g.connect(ctx.destination);
+    o.start();o2.start();o.stop(ctx.currentTime+1.2);o2.stop(ctx.currentTime+1.2);
+  }catch(e){}
 }
-function playScream() {
-try {
-const ctx = getAudioCtx();
-const osc = ctx.createOscillator(), osc2 = ctx.createOscillator();
-const gain = ctx.createGain(), dist = ctx.createWaveShaper();
-const curve = new Float32Array(256);
-for (let i = 0; i < 256; i++) { const x = (i*2)/256-1; curve[i] = (Math.PI+400)*x/(Math.PI+400*Math.abs(x)); }
-dist.curve = curve;
-osc.type = 'sawtooth'; osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.linearRampToValueAtTime(400, ctx.currentTime+0.5); osc.frequency.linearRampToValueAtTime(1200, ctx.currentTime+0.8); osc.frequency.linearRampToValueAtTime(200, ctx.currentTime+1.2);
-osc2.type = 'square'; osc2.frequency.setValueAtTime(600, ctx.currentTime); osc2.frequency.linearRampToValueAtTime(300, ctx.currentTime+1.2);
-gain.gain.setValueAtTime(0.5, ctx.currentTime); gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime+1.2);
-osc.connect(dist); osc2.connect(dist); dist.connect(gain); gain.connect(ctx.destination);
-osc.start(); osc2.start(); osc.stop(ctx.currentTime+1.2); osc2.stop(ctx.currentTime+1.2);
-} catch(e){}
+function playWhisper(){
+  try{
+    const ctx=getAudioCtx();
+    const sz=ctx.sampleRate*1.5,buf=ctx.createBuffer(1,sz,ctx.sampleRate),data=buf.getChannelData(0);
+    for(let i=0;i<sz;i++) data[i]=(Math.random()*2-1)*.1*Math.sin(i/ctx.sampleRate*6*Math.PI);
+    const src=ctx.createBufferSource(),g=ctx.createGain(),f=ctx.createBiquadFilter();
+    f.type='bandpass';f.frequency.value=2500;f.Q.value=2;
+    g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(.5,ctx.currentTime+.4);g.gain.linearRampToValueAtTime(0,ctx.currentTime+1.5);
+    src.buffer=buf;src.connect(f);f.connect(g);g.connect(ctx.destination);src.start();
+  }catch(e){}
 }
-function playWhisper() {
-try {
-const ctx = getAudioCtx();
-const bufferSize = ctx.sampleRate * 1.5;
-const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-const data = buffer.getChannelData(0);
-for (let i = 0; i < bufferSize; i++) data[i] = (Math.random()*2-1)*0.1*Math.sin(i/ctx.sampleRate*6*Math.PI);
-const source = ctx.createBufferSource(), gain = ctx.createGain(), filter = ctx.createBiquadFilter();
-filter.type = 'bandpass'; filter.frequency.value = 2500; filter.Q.value = 2;
-gain.gain.setValueAtTime(0, ctx.currentTime); gain.gain.linearRampToValueAtTime(0.5, ctx.currentTime+0.4); gain.gain.linearRampToValueAtTime(0, ctx.currentTime+1.5);
-source.buffer = buffer; source.connect(filter); filter.connect(gain); gain.connect(ctx.destination); source.start();
-} catch(e){}
-}
-function playLowRumble() {
-try {
-const ctx = getAudioCtx();
-const osc = ctx.createOscillator(), gain = ctx.createGain();
-osc.type = 'sine'; osc.frequency.setValueAtTime(30, ctx.currentTime);
-gain.gain.setValueAtTime(0, ctx.currentTime); gain.gain.linearRampToValueAtTime(0.4, ctx.currentTime+0.5); gain.gain.linearRampToValueAtTime(0, ctx.currentTime+2);
-osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+2);
-} catch(e){}
+function playLowRumble(){
+  try{
+    const ctx=getAudioCtx();
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.type='sine';o.frequency.setValueAtTime(30,ctx.currentTime);
+    g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(.4,ctx.currentTime+.5);g.gain.linearRampToValueAtTime(0,ctx.currentTime+2);
+    o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+2);
+  }catch(e){}
 }
 
-// ===== WINDOWS 11 CLOCK =====
-function updateWin11Clock() {
-const now = new Date();
-const h = now.getHours(), m = String(now.getMinutes()).padStart(2,'0');
-const ampm = h >= 12 ? 'PM' : 'AM', h12 = ((h%12)||12);
-const dateStr = now.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'numeric'});
-const el = document.getElementById('win11-clock');
-if (el) el.innerHTML = `${h12}:${m} ${ampm}<br>${dateStr}`;
+// ============================================================
+// CUSTOM CURSOR
+// ============================================================
+const cursor=document.getElementById('custom-cursor');
+const cursorDot=document.getElementById('custom-cursor-dot');
+document.addEventListener('mousemove',e=>{
+  cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';
+  cursorDot.style.left=e.clientX+'px';cursorDot.style.top=e.clientY+'px';
+});
+document.addEventListener('mouseover',e=>{
+  if(e.target.tagName==='BUTTON'||e.target.tagName==='A'||e.target.classList.contains('desktop-icon')||e.target.classList.contains('clue-card')||e.target.classList.contains('file-entry')){
+    cursor.classList.add('hover');
+  }
+});
+document.addEventListener('mouseout',()=>cursor.classList.remove('hover'));
+
+// ============================================================
+// WIN11 CLOCK
+// ============================================================
+function updateClock(){
+  const now=new Date();
+  const h=now.getHours(),m=String(now.getMinutes()).padStart(2,'0');
+  const ampm=h>=12?'PM':'AM',h12=((h%12)||12);
+  const d=now.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'numeric'});
+  const el=document.getElementById('win11-clock');
+  if(el) el.innerHTML=`${h12}:${m} ${ampm}<br>${d}`;
+  const sc=document.getElementById('screensaver-clock');
+  if(sc) sc.textContent=`${h12}:${m}`;
 }
 
-// ===== WIN11 BOOT =====
-window.addEventListener('DOMContentLoaded', () => {
-updateWin11Clock();
-setInterval(updateWin11Clock, 10000);
-const wallpaper = document.getElementById('win11-wallpaper');
-const bootLogo = document.getElementById('win11-boot-logo');
-const desktop = document.getElementById('win11-desktop');
-setTimeout(() => { wallpaper.classList.add('show'); }, 300);
-setTimeout(() => { bootLogo.classList.add('show'); }, 800);
-setTimeout(() => {
-bootLogo.style.transition = 'opacity 0.6s';
-bootLogo.style.opacity = '0';
-setTimeout(() => { desktop.classList.add('show'); }, 700);
-}, 3500);
+// ============================================================
+// WIN11 BOOT
+// ============================================================
+window.addEventListener('DOMContentLoaded',()=>{
+  updateClock();setInterval(updateClock,10000);
+  const bg=document.getElementById('win11-bg');
+  const logo=document.getElementById('win11-boot-logo');
+  const desk=document.getElementById('win11-desktop');
+  setTimeout(()=>bg.classList.add('show'),300);
+  setTimeout(()=>logo.classList.add('show'),800);
+  setTimeout(()=>{
+    logo.style.transition='opacity .6s';logo.style.opacity='0';
+    setTimeout(()=>{
+      desk.classList.add('show');
+      initDesktopInteractivity();
+      setTimeout(()=>scheduleNotifications(),3000);
+    },700);
+  },3500);
 });
 
-let siteUnlocked = false;
-function openSallyWebsite() {
-if (siteUnlocked) return;
-siteUnlocked = true;
-getAudioCtx();
-const icon = document.getElementById('sally-icon');
-const flash = document.getElementById('win11-open-flash');
-const winScreen = document.getElementById('win11-screen');
-icon.classList.add('selected');
-playStaticBurst(0.1);
-setTimeout(() => {
-flash.style.opacity = '1';
-setTimeout(() => {
-flash.style.opacity = '0';
-let g = 0;
-const glitchWin = setInterval(() => {
-winScreen.style.filter = g%2===0 ? 'hue-rotate(180deg) saturate(5) invert(0.3)' : '';
-playStaticBurst(0.05);
-g++;
-if (g > 8) {
-clearInterval(glitchWin);
-winScreen.style.filter = '';
-flash.style.background = '#8b0000';
-flash.style.opacity = '0.9';
-setTimeout(() => { winScreen.style.display = 'none'; startSite(); }, 200);
-}
-}, 120);
-}, 80);
-}, 400);
+// ============================================================
+// DESKTOP DRAG
+// ============================================================
+function makeDraggable(el,handle){
+  let dragging=false,ox=0,oy=0;
+  handle=handle||el;
+  handle.addEventListener('mousedown',e=>{
+    dragging=true;
+    ox=e.clientX-el.offsetLeft;
+    oy=e.clientY-el.offsetTop;
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',e=>{
+    if(!dragging)return;
+    el.style.left=(e.clientX-ox)+'px';
+    el.style.top=(e.clientY-oy)+'px';
+    el.style.bottom='auto';el.style.right='auto';
+  });
+  document.addEventListener('mouseup',()=>dragging=false);
 }
 
-function startSite() {
-const loader = document.getElementById('loader');
-const fill = document.getElementById('blood-fill');
-const mainContainer = document.getElementById('main-container');
-loader.style.display = 'flex';
-playLowRumble();
-setTimeout(() => { fill.style.height = '100%'; playDrone(); }, 200);
-setInterval(() => { playHeartbeat(); }, 12000);
-setInterval(() => { if (Math.random() < 0.4) playWhisper(); }, 18000);
-setTimeout(() => {
-loader.classList.add('fade-out');
-setTimeout(() => {
-loader.style.display = 'none';
-mainContainer.style.display = 'block';
-startMainPageEffects();
-}, 1100);
-}, 5000);
+function initDesktopInteractivity(){
+  makeDraggable(document.getElementById('win-popup'),document.getElementById('popup-titlebar'));
+  makeDraggable(document.getElementById('notepad-popup'),document.getElementById('notepad-titlebar'));
+
+  // Context menu
+  document.getElementById('win11-desktop').addEventListener('contextmenu',e=>{
+    e.preventDefault();
+    const m=document.getElementById('ctx-menu');
+    m.style.left=Math.min(e.clientX,window.innerWidth-180)+'px';
+    m.style.top=Math.min(e.clientY,window.innerHeight-200)+'px';
+    m.classList.add('open');
+    setTimeout(()=>m.classList.remove('open'),4000);
+  });
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#ctx-menu')) document.getElementById('ctx-menu').classList.remove('open');
+  });
+
+  // Secret screensaver after 2 min idle
+  let idleTimer;
+  const resetIdle=()=>{
+    clearTimeout(idleTimer);
+    idleTimer=setTimeout(()=>{
+      const ss=document.getElementById('win-screensaver');
+      ss.classList.add('on');
+    },120000);
+  };
+  document.addEventListener('mousemove',resetIdle);
+  document.addEventListener('keydown',resetIdle);
 }
 
-function startMainPageEffects() {
-window.addEventListener('scroll', () => {
-const s = document.documentElement.scrollTop;
-const h = document.documentElement.scrollHeight - window.innerHeight;
-document.getElementById('progress-bar').style.width = (s/h*100) + '%';
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+function showNotification(title,body){
+  const n=document.getElementById('win-notification');
+  document.getElementById('notif-title').textContent=title;
+  document.getElementById('notif-body').textContent=body;
+  n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'),5000);
+}
+const notifQueue=[
+  {t:'Unknown Sender','b':'she is already inside'},
+  {t:'Sally','b':'did you hear that? 6:66'},
+  {t:'SYSTEM','b':'File created: "you cannot delete this"'},
+  {t:'Sally','b':'i see you'},
+  {t:'Camera','b':'Recording started automatically at 7:06 AM'},
+  {t:'Sally','b':'why did you click the button'},
+];
+let notifIdx=0;
+function scheduleNotifications(){
+  if(notifIdx>=notifQueue.length) notifIdx=0;
+  const n=notifQueue[notifIdx++];
+  showNotification(n.t,n.b);
+  setTimeout(scheduleNotifications,(8000+Math.random()*20000));
+}
+
+// ============================================================
+// PHOTOS DATA
+// ============================================================
+const photos=[
+  {emoji:'👁️',caption:'SALLY IS HERE — ROOM 6, JUNE 6',meta:'GPS: 44.9778N 93.2650W\nTIMESTAMP: 06/06/2016 07:06:06\nDEVICE: UNKNOWN\nNOTE: metadata corrupted · subject not visible in frame · something else is'},
+  {emoji:'🎎',caption:'SALLY IS HERE — THE DOLL',meta:'FILE: CORRUPTED\nTIMESTAMP: ??/??/???? ??:??:??\nNOTE: photograph appears on devices that have never stored it · appears in own camera roll · deletion fails silently'},
+  {emoji:'🌑',caption:'SALLY IS HERE — HALLWAY 3:00 AM',meta:'GPS: YOUR LOCATION\nTIMESTAMP: LAST NIGHT\nNOTE: cctv footage — hallway empty — then not empty — six seconds — something at the end of the hall — facing the camera — not moving'},
+  {emoji:'🪟',caption:'SALLY IS HERE — THE WINDOW',meta:'TIMESTAMP: 06/06/2016 06:60 AM\nNOTE: photograph taken from outside the window · window is on the 4th floor · no fire escape · no ladder · GPS puts photographer inside the locked room'},
+  {emoji:'🖥️',caption:'SALLY IS HERE — THE SCREEN',meta:'NOTE: this photograph was found on every device in the house after the incident · no one took it · it shows the screen of a computer that had been unplugged for 10 years · the screen is on · it shows this page'},
+  {emoji:'❓',caption:'██████ IS ██████ — CORRUPTED',meta:'FILE CORRUPTED — RECOVERY FAILED\nFRAGMENTS: [she was standing behind you] [when you opened this file] [she was already here]\nNOTE: do not attempt to repair this file'},
+];
+function openPhoto(idx){
+  const p=photos[idx];
+  const lb=document.getElementById('photo-lightbox');
+  const img=document.getElementById('lightbox-img');
+  const cap=document.getElementById('lightbox-caption');
+  const meta=document.getElementById('lightbox-meta');
+  img.textContent=p.emoji;
+  img.style.fontSize='80px';
+  cap.textContent=p.caption;
+  meta.textContent=p.meta;
+  lb.classList.add('open');
+  playStaticBurst(.15);
+  // Glitch effect on load
+  let g=0;
+  const gl=setInterval(()=>{
+    img.style.filter=g%2===0?'hue-rotate(180deg) saturate(5)':'none';
+    g++;if(g>6) clearInterval(gl);
+  },100);
+  getAudioCtx();
+}
+function closeLightbox(e,force){
+  if(force||!e||e.target.id==='photo-lightbox')
+    document.getElementById('photo-lightbox').classList.remove('open');
+}
+
+// ============================================================
+// NOTEPAD
+// ============================================================
+function openNotepad(){
+  const np=document.getElementById('notepad-popup');
+  const body=document.getElementById('notepad-body');
+  body.innerHTML=`<span class="red">CASE FILE #666 — CLASSIFIED — EYES ONLY</span>
+
+Subject: SALLY ██████
+Date of Birth: 06/06/2006
+Date of Death: 06/06/2016 — 07:06 AM
+Age: 10 years, 0 months, 0 days, 0 hours, 0 minutes
+
+<span class="red">INCIDENT SUMMARY:</span>
+Subject found deceased in bedroom at approximately
+07:06 AM. No signs of struggle. No cause of death
+identified by coroner. Mirrors in residence found
+face-down. All electronic devices displaying same
+text message on power restoration.
+
+<span class="red">RECOVERED TEXT (ALL SCREENS):</span>
+"SHE IS NOT GONE. SHE IS INSIDE."
+
+<span class="red">ANOMALOUS ACTIVITY POST-INCIDENT:</span>
+— Doll missing from scene, no explanation
+— Photographs appearing on investigator devices
+— ████████████████████████████████
+— ████████████████████████████████
+
+<span class="red">CURRENT STATUS: ACTIVE ∙ ONGOING ∙ WATCHING</span>
+
+<span style="color:#004400;">// type "666" on the main page to access archive</span>
+
+<span class="blink red">_</span>`;
+  np.classList.add('open');
+  getAudioCtx();
+}
+
+// ============================================================
+// CONTEXT MENU ACTIONS
+// ============================================================
+function ctxAction(a){
+  document.getElementById('ctx-menu').classList.remove('open');
+  if(a==='secret'){
+    playStaticBurst(.2);
+    showNotification('HIDDEN FILE FOUND','she left something for you');
+    setTimeout(()=>openArchiveFolder(),1500);
+  } else if(a==='refresh'){
+    let g=0;
+    const gl=setInterval(()=>{
+      document.getElementById('win11-desktop').style.filter=g%2===0?'invert(1)':'none';
+      g++;if(g>6){clearInterval(gl);document.getElementById('win11-desktop').style.filter='';}
+    },80);
+  } else if(a==='properties'){
+    showNotification('Desktop Properties','Owner: SALLY\nLast modified: 06/06/2016\nHidden files: YES');
+  }
+}
+
+// ============================================================
+// ARCHIVE FOLDER (page 3)
+// ============================================================
+function openArchiveFolder(){
+  getAudioCtx();
+  playStaticBurst(.2);
+  document.getElementById('page3').style.display='block';
+  document.body.style.overflow='hidden';
+}
+function closePage3(){
+  document.getElementById('page3').style.display='none';
+  document.body.style.overflow='';
+}
+function openFilePreview(type){
+  playStaticBurst(.1);
+  const previews={
+    report:'INCIDENT_REPORT_FINAL.pdf\n\n[CLASSIFIED — READING THIS FILE HAS BEEN LOGGED]\n\nPages 1–3: REDACTED\nPage 4: Subject deceased at scene. No witnesses. Equipment failure reported by first responders.\nPage 5–12: REDACTED\nPage 13: "We recommend closing this case. There is nothing further that can be done. Whatever she is now, she is no longer here in any sense we can investigate."\n\n— CASE CLOSED 06/13/2016\n— REOPENED: AUTOMATICALLY — DATE: NOW',
+    audio:'RECORDING_07_06_2016.wav\n\n[FILE CORRUPTED — PARTIAL RECOVERY]\n\nDuration: 6 seconds\nSample rate: 44100 Hz\n\nSpectrogram analysis: IMAGE EMBEDDED IN AUDIO\nImage contents: [CLASSIFIED]\n\nAudio transcript (recovered):\n"...i am still in the ma...chine... i never le... ft... the scre... en is wa... rm..."\n\nREMAINDER OF FILE: UNRECOVERABLE',
+    photo:'PHOTO_LAST_KNOWN.jpg\n\n[ACCESS LOG: YOU ARE VIEWER #666]\n\nSubject: Sally ██████\nLocation: Bedroom, 06/06/2016\nTime: 07:06:06 AM\n\nNOTE: Subject not visible in photograph.\nNOTE: Something visible at window. Classified.\nNOTE: GPS metadata lists YOUR current location.\nNOTE: Photograph was taken from inside a locked room. Door was locked from the outside.',
+    diary:'DIARY SCAN — PAGES 1–3\n\n[HANDWRITING ANALYSIS: DOES NOT MATCH SUBJECT]\n[INK ANALYSIS: NOT INK — SUBSTANCE UNKNOWN]\n\nPage 1: See main site\nPage 2: See main site\nPage 3: See main site\n\n→ Full diary accessible at: [THE CONFESSION]\n\nNOTE: Forensics reported that the diary was not in the house during the initial search. It appeared three days later. The floorboard it was under had not been disturbed.\n\nNOTE: Reading the diary takes an average of 6 minutes.',
+    gps:'GPS_LOG_DEVICE.txt\n\n[SUBJECT\'S DEVICE GPS LOG — JUNE 6, 2016]\n\n06:00 AM — Home\n06:30 AM — Home\n07:00 AM — Home\n07:06 AM — ████████████████\n07:07 AM — ████████████████\n07:08 AM — ████████████████\n...\n\nNOTE: GPS continued to log after time of death.\nNOTE: Locations after 07:07 AM do not correspond to any known address.\nNOTE: The final GPS entry, timestamped 07:06:06 on 06/06/2026 — ten years from death — lists YOUR current location.',
+    video:'CCTV_HALLWAY_06062016.mp4\n\n[FILE CORRUPTED — DO NOT ATTEMPT PLAYBACK]\n\nDuration: 6 minutes 6 seconds\nCamera: Hallway, Ground Floor\n\nFrame-by-frame analysis:\n00:00–05:59 — Empty hallway\n06:00 — Figure appears at end of hall\n06:01 — Figure has not moved\n06:02 — Figure has not moved\n06:03 — Figure has not moved\n06:04 — Figure has not moved\n06:05 — Figure has not moved\n06:06 — [FRAME MISSING]\n[ALL SUBSEQUENT FRAMES: CORRUPTED]\n\nNOTE: Figure is small. Possibly a child.\nNOTE: Figure is holding something.',
+    hidden:'██████████_FINAL.exe\n\n[ACCESS DENIED]\n[CLEARANCE LEVEL: ████]\n\nThis file has been flagged by 6 different antivirus programs.\nAll 6 programs stopped functioning after the scan.\n\nFile description: UNKNOWN\nFile origin: UNKNOWN\nFile author: S\n\n[DO NOT EXECUTE]\n[DO NOT EXECUTE]\n[DO NOT EXECUTE]\n\n...\n\nshe is already running',
+  };
+  const popup=document.getElementById('win-popup');
+  document.getElementById('popup-title').textContent=type.toUpperCase()+' — CASE #666';
+  document.getElementById('popup-body').innerHTML=`<pre style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#9a5528;white-space:pre-wrap;line-height:1.8;">${previews[type]}</pre>`;
+  popup.classList.add('open');
+}
+
+// ============================================================
+// RECYCLE BIN
+// ============================================================
+function openRecycleBin(){
+  playStaticBurst(.2);
+  const popup=document.getElementById('win-popup');
+  document.getElementById('popup-title').textContent='Recycle Bin — 6 items';
+  document.getElementById('popup-body').innerHTML=`
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:#ccc;line-height:2;">
+      <div style="display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer;" onclick="this.style.color='#cc0000'">🗑 "please_stop_watching_me.txt" — DELETED 06/06/2016</div>
+      <div style="display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer;" onclick="this.style.color='#cc0000'">🗑 "how_to_get_out_of_the_screen.pdf" — DELETED</div>
+      <div style="display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer;" onclick="this.style.color='#cc0000'">🗑 "BURN_THE_DOLL.doc" — DELETED</div>
+      <div style="display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer;" onclick="this.style.color='#cc0000'">🗑 "she_came_back.txt" — DELETED</div>
+      <div style="display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer;" onclick="this.style.color='#cc0000'">🗑 "I_SEE_HER.jpg" — CANNOT DELETE</div>
+      <div style="display:flex;gap:8px;align-items:center;margin:4px 0;" onclick="this.style.color='#ff0000';playStaticBurst(.3)">🗑 <span style="animation:flicker 1s infinite;">████████.exe — SHE WILL NOT LET YOU DELETE THIS</span></div>
+      <div style="margin-top:16px;font-size:.6rem;color:#330000;">EMPTY RECYCLE BIN: OPERATION FAILED — 1 ITEM CANNOT BE DELETED</div>
+    </div>`;
+  popup.classList.add('open');
+}
+
+// ============================================================
+// SYSTEM32
+// ============================================================
+function openSystem32(){
+  const popup=document.getElementById('win-popup');
+  document.getElementById('popup-title').textContent='System32 — RESTRICTED';
+  document.getElementById('popup-body').innerHTML=`
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#9a5528;line-height:1.9;">
+      <div style="color:#cc0000;margin-bottom:12px;">ACCESS ALERT: THIS DIRECTORY HAS BEEN MODIFIED</div>
+      <div>LAST SYSTEM MODIFICATION: 06/06/2016 07:06:06</div>
+      <div>MODIFIER: S</div>
+      <div style="margin:8px 0;color:#330000;">──────────────────────────</div>
+      <div>FOREIGN PROCESS DETECTED:</div>
+      <div style="color:#cc3300;margin:6px 0;">SALLY.EXE — CANNOT TERMINATE — PID: 666</div>
+      <div>CPU USAGE: 6.6%</div>
+      <div>MEMORY: 66 MB</div>
+      <div>UPTIME: SINCE 06/06/2016</div>
+      <div style="margin:8px 0;color:#330000;">──────────────────────────</div>
+      <div style="color:#660000;animation:flicker 2s infinite;">PROCESS DESCRIPTION: "watching"</div>
+      <div style="color:#330000;margin-top:12px;font-size:.6rem;">TERMINATE PROCESS? [Y/N]</div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button onclick="this.textContent='OPERATION FAILED — SHE DOES NOT WANT TO STOP';this.style.color='#cc0000';" style="background:#1a0000;color:#660000;border:1px solid #330000;font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:5px 10px;cursor:pointer;">Y — TERMINATE</button>
+        <button style="background:#1a0000;color:#660000;border:1px solid #330000;font-family:'Share Tech Mono',monospace;font-size:.65rem;padding:5px 10px;cursor:pointer;">N</button>
+      </div>
+    </div>`;
+  popup.classList.add('open');
+}
+
+// ============================================================
+// SCREENSAVER / PASSWORD
+// ============================================================
+function showPasswordScreen(){
+  document.getElementById('win-screensaver').classList.remove('on');
+  document.getElementById('win-password').classList.add('on');
+  document.getElementById('pw-input').value='';
+  document.getElementById('pw-error').style.display='none';
+}
+function checkPassword(){
+  const v=document.getElementById('pw-input').value;
+  if(v==='060606'||v==='666'||v==='sally'){
+    document.getElementById('win-password').classList.remove('on');
+    showNotification('Welcome back','she missed you');
+    playDrone();
+  } else {
+    const err=document.getElementById('pw-error');
+    err.style.display='block';
+    err.textContent='Incorrect. Hint: the day she was born. and died.';
+    playStaticBurst(.15);
+    // Jumpscare after 3 wrong tries
+    pwWrong++;
+    if(pwWrong>=3){
+      document.getElementById('win-password').classList.remove('on');
+      document.getElementById('win-screensaver').classList.remove('on');
+      triggerJumpscare();
+    }
+  }
+}
+let pwWrong=0;
+document.getElementById('pw-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter') checkPassword();
 });
-const bg = document.getElementById('bgNums');
-const nums = ['6','66','666','6:66','06/06','07:06','6666','✝'];
-for (let i = 0; i < 30; i++) {
-const el = document.createElement('span');
-el.className = 'bg-num';
-el.textContent = nums[Math.floor(Math.random()*nums.length)];
-el.style.left = Math.random()*100 + 'vw';
-el.style.animationDuration = (15+Math.random()*25) + 's';
-el.style.animationDelay = (Math.random()*20) + 's';
-el.style.fontSize = (0.4+Math.random()*0.6) + 'rem';
-bg.appendChild(el);
-}
-setInterval(() => {
-if (Math.random() < 0.08) {
-document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-playStaticBurst(0.08);
-setTimeout(() => { document.body.style.filter = ''; }, 80);
-setTimeout(() => { document.body.style.filter = 'invert(1) hue-rotate(180deg)'; setTimeout(() => { document.body.style.filter = ''; }, 60); }, 160);
-}
-}, 4000);
-const titles = ['S A L L Y','she is watching','dont look away','06.06.2016','SHE KNOWS','...she sees you...','S A L L Y'];
-let ti = 0;
-setInterval(() => { ti = (ti+1)%titles.length; document.title = titles[ti]; }, 3000);
 
-// Blood letters
-const overlay = document.getElementById('horror-overlay');
-const sequences = [["S","H","E","'","S"," ","H","E","R","E"],["G","E","T"," ","O","U","T"],["S","A","L","L","Y"],["S","H","E"," ","S","E","E","S"," ","Y","O","U"],["R","U","N"],["Y","O","U"," ","A","R","E"," ","N","E","X","T"],["D","O","N","'","T"," ","L","O","O","K"],["I"," ","F","O","U","N","D"," ","Y","O","U"],["6","6","6"],["S","H","E"," ","N","E","V","E","R"," ","L","E","F","T"],["I","'","M"," ","I","N","S","I","D","E"],["T","U","R","N"," ","I","T"," ","O","F","F"]];
-const colors = ['#cc0000','#dd1100','#bb0000','#ff2200','#aa0000','#ee1100'];
-function dropBloodLetters() {
-const letters = sequences[Math.floor(Math.random()*sequences.length)];
-const col = colors[Math.floor(Math.random()*colors.length)];
-let nonSpaceCount = letters.filter(c=>c!==' ').length, nonSpaceIdx = 0;
-letters.forEach(char => {
-if (char===' ') return;
-const el = document.createElement('div');
-el.className = 'blood-letter'; el.textContent = char; el.style.color = col;
-el.style.textShadow = `0 0 12px ${col}cc, 0 0 35px ${col}66`;
-const baseX = 10+(nonSpaceIdx/Math.max(nonSpaceCount-1,1))*80;
-el.style.left = (baseX+(Math.random()*4-2)) + '%';
-const delay = nonSpaceIdx*140+Math.random()*80, duration = 2400+Math.random()*900;
-el.style.animationDuration = duration+'ms'; el.style.animationDelay = delay+'ms';
-el.style.fontSize = (2.4+Math.random()*1.8)+'rem';
-overlay.appendChild(el);
-setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, delay+duration+300);
-nonSpaceIdx++;
-});
-}
-setTimeout(() => { dropBloodLetters(); setInterval(dropBloodLetters, 20000); }, 10000);
-
-// Scroll jumpscare
-let jumpscareFired = false;
-window.addEventListener('scroll', () => {
-if (jumpscareFired) return;
-const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-if (scrollPct > 0.55) { jumpscareFired = true; triggerJumpscare(); }
-});
-
-// Timed whisper scare
-setTimeout(() => { triggerWhisperScare(); }, 45000);
-
-// Mouse leave scare
-document.addEventListener('mouseleave', () => {
-if (Math.random() < 0.6) {
-setTimeout(() => {
-playWhisper();
-document.body.style.filter = 'brightness(0.3)';
-setTimeout(() => { document.body.style.filter = ''; }, 300);
-}, 500);
-}
-});
+// ============================================================
+// POPUP CLOSE
+// ============================================================
+function closePopup(){
+  document.getElementById('win-popup').classList.remove('open');
 }
 
-function triggerJumpscare() {
-const overlay = document.getElementById('jumpscare-overlay');
-const faces = ['👁️','💀','👻','🩸','😱','👁️'];
-const texts = ['SHE FOUND YOU','BEHIND YOU','TOO LATE','SHE SEES YOU','DON\'T LOOK','TURN AROUND'];
-document.getElementById('jumpscare-face').textContent = faces[Math.floor(Math.random()*faces.length)];
-document.getElementById('jumpscare-text').textContent = texts[Math.floor(Math.random()*texts.length)];
-overlay.classList.add('active');
-playScream(); playStaticBurst(0.5);
-setTimeout(() => { overlay.classList.remove('active'); }, 800);
+// ============================================================
+// OPENING SALLY.EXE
+// ============================================================
+let siteUnlocked=false;
+function openSallyWebsite(){
+  if(siteUnlocked) return;
+  siteUnlocked=true;
+  getAudioCtx();
+  const icon=document.getElementById('icon-sally');
+  const desk=document.getElementById('win11-desktop');
+  const win=document.getElementById('win11-screen');
+  icon.classList.add('selected');
+  playStaticBurst(.1);
+  let g=0;
+  const glitch=setInterval(()=>{
+    desk.style.filter=g%2===0?'hue-rotate(180deg) saturate(5) invert(.3)':'';
+    playStaticBurst(.05);
+    g++;
+    if(g>10){
+      clearInterval(glitch);
+      desk.style.filter='';
+      // Red flash
+      desk.style.background='#8b0000';
+      setTimeout(()=>{
+        win.style.display='none';
+        startSite();
+      },200);
+    }
+  },120);
 }
 
-function triggerWhisperScare() {
-playWhisper();
-document.body.style.filter = 'brightness(0.15) saturate(0)';
-setTimeout(() => { document.body.style.filter = ''; }, 150);
-setTimeout(() => { document.body.style.filter = 'brightness(0.15)'; setTimeout(() => { document.body.style.filter = ''; }, 100); }, 300);
+// ============================================================
+// SITE START
+// ============================================================
+function startSite(){
+  const loader=document.getElementById('loader');
+  const fill=document.getElementById('blood-fill');
+  const main=document.getElementById('main-container');
+  loader.style.display='flex';
+  playLowRumble();
+  let loaderTexts=['LOADING YOUR END','LOCATING YOUR DEVICE','ACCESSING YOUR FILES','SHE IS WATCHING','INITIALIZING DOLL.EXE','OPENING THE DOOR'];
+  let ltIdx=0;
+  const ltInterval=setInterval(()=>{
+    ltIdx=(ltIdx+1)%loaderTexts.length;
+    document.getElementById('loader-text').textContent=loaderTexts[ltIdx];
+  },700);
+  setTimeout(()=>{fill.style.height='100%';playDrone();},200);
+  setInterval(()=>playHeartbeat(),12000);
+  setInterval(()=>{if(Math.random()<.4) playWhisper();},18000);
+  setTimeout(()=>{
+    clearInterval(ltInterval);
+    loader.classList.add('fade-out');
+    setTimeout(()=>{
+      loader.style.display='none';
+      main.style.display='block';
+      startMainPageEffects();
+    },1100);
+  },5000);
 }
 
-// ===== PAGE 2 =====
-function enterPage2() {
-const btn = document.getElementById('am-i-next-btn');
-const trans = document.getElementById('page-transition');
-btn.disabled = true; btn.textContent = '...';
-playScream(); playLowRumble();
-let g1 = 0;
-const glitchPage1 = setInterval(() => {
-document.body.style.filter = g1%2===0 ? 'invert(1) hue-rotate(90deg) saturate(3)' : '';
-if (g1%3===0) playStaticBurst(0.06);
-g1++;
-if (g1 > 14) {
-clearInterval(glitchPage1);
-document.body.style.filter = '';
-trans.style.opacity = '1';
-setTimeout(() => {
-trans.style.opacity = '0';
-document.getElementById('page2').style.display = 'block';
-document.body.style.overflow = 'hidden';
-startPage2();
-}, 300);
-}
-}, 100);
+// ============================================================
+// MAIN PAGE EFFECTS
+// ============================================================
+function startMainPageEffects(){
+  // Progress bar
+  window.addEventListener('scroll',()=>{
+    const s=document.documentElement.scrollTop;
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    document.getElementById('progress-bar').style.width=(s/h*100)+'%';
+  });
+
+  // Floating bg numbers
+  const bg=document.getElementById('bgNums');
+  const nums=['6','66','666','6:66','06/06','07:06','6666','✝','☠'];
+  for(let i=0;i<30;i++){
+    const el=document.createElement('span');
+    el.className='bg-num';
+    el.textContent=nums[Math.floor(Math.random()*nums.length)];
+    el.style.left=Math.random()*100+'vw';
+    el.style.animationDuration=(15+Math.random()*25)+'s';
+    el.style.animationDelay=(Math.random()*20)+'s';
+    bg.appendChild(el);
+  }
+
+  // Random glitch
+  setInterval(()=>{
+    if(Math.random()<.08){
+      document.body.style.filter='invert(1) hue-rotate(180deg)';
+      playStaticBurst(.08);
+      setTimeout(()=>{document.body.style.filter='';},80);
+      setTimeout(()=>{document.body.style.filter='invert(1) hue-rotate(180deg)';setTimeout(()=>{document.body.style.filter='';},60);},160);
+    }
+  },4000);
+
+  // Title cycling
+  const titles=['S A L L Y','she is watching','dont look away','06.06.2016','SHE KNOWS','...she sees you...','STILL HERE','S A L L Y'];
+  let ti=0;
+  setInterval(()=>{ti=(ti+1)%titles.length;document.title=titles[ti];},3000);
+
+  // Blood letter drops
+  const overlay=document.getElementById('horror-overlay');
+  const sequences=[
+    ["S","H","E","'","S"," ","H","E","R","E"],
+    ["G","E","T"," ","O","U","T"],
+    ["S","A","L","L","Y"],
+    ["S","H","E"," ","S","E","E","S"," ","Y","O","U"],
+    ["R","U","N"],
+    ["Y","O","U"," ","A","R","E"," ","N","E","X","T"],
+    ["D","O","N","'","T"," ","L","O","O","K"],
+    ["I"," ","F","O","U","N","D"," ","Y","O","U"],
+    ["6","6","6"],
+    ["S","H","E"," ","N","E","V","E","R"," ","L","E","F","T"],
+    ["I","'","M"," ","I","N","S","I","D","E"],
+    ["T","U","R","N"," ","I","T"," ","O","F","F"],
+    ["S","H","E"," ","I","S"," ","R","E","A","D","I","N","G"],
+    ["D","O","N","'","T"," ","C","L","O","S","E"],
+  ];
+  const colors=['#cc0000','#dd1100','#bb0000','#ff2200','#aa0000','#ee1100'];
+  function dropBloodLetters(){
+    const letters=sequences[Math.floor(Math.random()*sequences.length)];
+    const col=colors[Math.floor(Math.random()*colors.length)];
+    let nsc=letters.filter(c=>c!==' ').length,nsi=0;
+    letters.forEach(char=>{
+      if(char===' ') return;
+      const el=document.createElement('div');
+      el.className='blood-letter';el.textContent=char;el.style.color=col;
+      el.style.textShadow=`0 0 12px ${col}cc,0 0 35px ${col}66`;
+      const bx=10+(nsi/Math.max(nsc-1,1))*80;
+      el.style.left=(bx+(Math.random()*4-2))+'%';
+      const delay=nsi*140+Math.random()*80,dur=2400+Math.random()*900;
+      el.style.animationDuration=dur+'ms';el.style.animationDelay=delay+'ms';
+      el.style.fontSize=(2.4+Math.random()*1.8)+'rem';
+      overlay.appendChild(el);
+      setTimeout(()=>{if(el.parentNode) el.parentNode.removeChild(el);},delay+dur+300);
+      nsi++;
+    });
+  }
+  setTimeout(()=>{dropBloodLetters();setInterval(dropBloodLetters,20000);},10000);
+
+  // Scroll jumpscare
+  let jsq=false;
+  window.addEventListener('scroll',()=>{
+    if(jsq) return;
+    const pct=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight);
+    if(pct>.55){jsq=true;triggerJumpscare();}
+  });
+  setTimeout(()=>triggerWhisperScare(),45000);
+  document.addEventListener('mouseleave',()=>{
+    if(Math.random()<.6){
+      setTimeout(()=>{
+        playWhisper();
+        document.body.style.filter='brightness(.3)';
+        setTimeout(()=>{document.body.style.filter='';},300);
+      },500);
+    }
+  });
+
+  // Secret "666" key sequence listener
+  let keySequence='';
+  document.addEventListener('keypress',e=>{
+    keySequence+=e.key;
+    if(keySequence.includes('666')){
+      keySequence='';
+      playStaticBurst(.3);
+      showNotification('HIDDEN ACCESS GRANTED','the archive has been unlocked');
+      setTimeout(()=>openArchiveFolder(),1500);
+    }
+    if(keySequence.length>20) keySequence=keySequence.slice(-20);
+  });
+
+  // Doll click state
+  window._dollClicks=0;
 }
 
-function startPage2() {
-const blocks = document.querySelectorAll('.p2-block');
-const chaosEl = document.getElementById('p2-chaos-text');
-const itsTimeEl = document.getElementById('p2-its-time');
-const staticEl = document.getElementById('p2-static');
-const redflash = document.getElementById('p2-redflash');
-playDrone();
-blocks.forEach((block, i) => { setTimeout(() => { block.classList.add('visible'); playHeartbeat(); }, 1000+i*5500); });
-setTimeout(() => { playWhisper(); }, 8000);
-setTimeout(() => { playWhisper(); triggerWhisperScare(); }, 18000);
-setTimeout(() => { playWhisper(); }, 26000);
-setTimeout(() => {
-document.getElementById('p2-content').style.transition = 'opacity 1s';
-document.getElementById('p2-content').style.opacity = '0';
-playStaticBurst(0.6);
-setTimeout(() => {
-document.getElementById('p2-content').style.display = 'none';
-chaosEl.style.display = 'block';
-startChaosText(chaosEl);
-}, 1000);
-}, 32000);
-setTimeout(() => { startIntenseGlitch(staticEl, redflash); playScream(); }, 45000);
-setTimeout(() => { chaosEl.style.display = 'none'; itsTimeEl.style.display = 'flex'; startFinalMeltdown(staticEl, redflash); playDrone(); }, 50000);
-// FBI page at 1m5s
-setTimeout(() => { triggerFBIPage(); }, 65000);
+// ============================================================
+// JUMPSCARE
+// ============================================================
+function triggerJumpscare(){
+  const ov=document.getElementById('jumpscare-overlay');
+  const faces=['👁️','💀','👻','🩸','😱','👁️'];
+  const texts=["SHE FOUND YOU","BEHIND YOU","TOO LATE","SHE SEES YOU","DON'T LOOK","TURN AROUND","SHE'S INSIDE"];
+  document.getElementById('jumpscare-face').textContent=faces[Math.floor(Math.random()*faces.length)];
+  document.getElementById('jumpscare-text').textContent=texts[Math.floor(Math.random()*texts.length)];
+  ov.classList.add('active');
+  playScream();playStaticBurst(.5);
+  setTimeout(()=>ov.classList.remove('active'),800);
+}
+function triggerWhisperScare(){
+  playWhisper();
+  document.body.style.filter='brightness(.15) saturate(0)';
+  setTimeout(()=>{document.body.style.filter='';},150);
+  setTimeout(()=>{document.body.style.filter='brightness(.15)';setTimeout(()=>{document.body.style.filter='';},100);},300);
 }
 
-const chaosPool = ["she is inside your walls","you let her in","the doll is already in your house","look behind you","don't turn around","your reflection is not yours","she counts your heartbeats","6 6 6 6 6","she knows your name","you cannot close this","the screen is her eye","your device belongs to her now","she typed this","she is reading along with you","do not breathe","the door is open","she never left","you are being watched from inside the glass","your files are already corrupted","you have 6 minutes","don't blink","she is standing behind your chair","look at the corner of your room","something moved","you heard that","check under the bed","june 6","7:06","she knows your face","the camera is already on","it was never a story","this is not fiction","you are next","she chose you","it is too late to close this","she is in the dark behind your screen","she follows the light into your eyes","the doll blinked","the doll smiled","the doll turned its head","you cannot unhear this","you cannot unsee her","she will be there when you sleep","SHE IS HERE","SHE IS HERE","SHE IS HERE"];
-const glitchChars = '!@#$%^&*()_+-=[]{}|;<>?,./~`¡¿§±ÿþøßæœ∂ƒ©˙∆˚¬…æ≈ç√∫˜µ≤≥÷';
-function glitchifyText(str) { return str.split('').map(c => Math.random()<0.25&&c!==' ' ? glitchChars[Math.floor(Math.random()*glitchChars.length)] : c).join(''); }
-function startChaosText(el) {
-let intensity = 0; const start = Date.now(), duration = 18000;
-function updateChaos() {
-const elapsed = Date.now()-start; intensity = Math.min(elapsed/duration,1);
-const numLines = Math.floor(3+intensity*8); let lines = [];
-for (let i = 0; i < numLines; i++) {
-let phrase = chaosPool[Math.floor(Math.random()*chaosPool.length)];
-if (Math.random()<intensity*0.85) phrase = glitchifyText(phrase);
-if (Math.random()<intensity*0.6) phrase = phrase.toUpperCase();
-lines.push(phrase);
-}
-el.innerHTML = lines.join('<br>');
-el.style.color = `rgb(${Math.floor(150+intensity*105)},0,0)`;
-el.style.fontSize = (1+intensity*0.8)+'rem';
-if (intensity>0.5&&Math.random()<0.3) playStaticBurst(0.05);
-if (elapsed<duration) setTimeout(updateChaos, Math.max(80, 600-intensity*520));
-}
-updateChaos();
-}
-function startIntenseGlitch(staticEl, redflash) {
-let tick = 0;
-const glitchInterval = setInterval(() => {
-tick++;
-const page2 = document.getElementById('page2');
-const filters = ['invert(1)','hue-rotate(90deg) saturate(5)','brightness(3)','contrast(10) hue-rotate(180deg)','invert(1) hue-rotate(45deg)','saturate(0) brightness(0.1)','none'];
-page2.style.filter = filters[tick%filters.length];
-staticEl.style.opacity = (Math.random()*0.7).toString();
-redflash.style.opacity = (Math.random()*0.6).toString();
-page2.style.transform = `translate(${(Math.random()-0.5)*20}px,${(Math.random()-0.5)*20}px)`;
-if (tick > 50) { clearInterval(glitchInterval); page2.style.filter = ''; page2.style.transform = ''; }
-}, 100);
-}
-function startFinalMeltdown(staticEl, redflash) {
-const page2 = document.getElementById('page2'); let tick = 0;
-const meltdown = setInterval(() => {
-tick++;
-const intensity = Math.min(tick/30,1);
-const filters = [`invert(${Math.random()}) hue-rotate(${Math.random()*360}deg) saturate(${1+Math.random()*10})`,`brightness(${Math.random()*5}) contrast(${Math.random()*10})`,`blur(${Math.random()*4}px) invert(1)`,'none','none'];
-page2.style.filter = filters[Math.floor(Math.random()*filters.length)];
-staticEl.style.opacity = (Math.random()*0.9).toString();
-redflash.style.opacity = (Math.random()*0.8).toString();
-const shake = 15+intensity*30;
-page2.style.transform = `translate(${(Math.random()-0.5)*shake}px,${(Math.random()-0.5)*shake}px) rotate(${(Math.random()-0.5)*3}deg)`;
-const itsTime = document.getElementById('p2-its-time');
-if (Math.random()<0.3) { const phrases = ["IT'S TIME...","S̶H̸E̷'S̴ H̵E̶R̷E̴","666","RUN","TOO LATE","SHE FOUND YOU"]; itsTime.textContent = phrases[Math.floor(Math.random()*phrases.length)]; }
-if (tick > 180) clearInterval(meltdown);
-}, 80);
+// ============================================================
+// DOLL CLICK
+// ============================================================
+function dollClick(){
+  getAudioCtx();
+  window._dollClicks=(window._dollClicks||0)+1;
+  const d=document.getElementById('doll-display');
+  const states=['🎎','👁️','💀','🩸','😱','👁️‍🗨️'];
+  d.textContent=states[Math.min(window._dollClicks,states.length-1)];
+  playStaticBurst(.1);
+  if(window._dollClicks===3){
+    triggerJumpscare();
+    setTimeout(()=>showNotification('Sally','why did you touch the doll'),1200);
+  }
+  if(window._dollClicks>=5){
+    playScream();
+    d.style.animation='jumpFace .2s steps(1) infinite';
+    setTimeout(()=>{d.style.animation='imagePulse 8s ease-in-out infinite';d.textContent='🎎';window._dollClicks=0;},2000);
+  }
 }
 
-// ===== FBI SEIZURE =====
-function triggerFBIPage() {
-const fbiPage = document.getElementById('fbi-page');
-const page2 = document.getElementById('page2');
-playStaticBurst(1.0);
-playScream();
-let flashCount = 0;
-const flashInterval = setInterval(() => {
-page2.style.filter = flashCount%2===0 ? 'invert(1) saturate(0) brightness(5)' : 'none';
-page2.style.transform = `translate(${(Math.random()-0.5)*40}px,${(Math.random()-0.5)*40}px)`;
-flashCount++;
-if (flashCount > 16) {
-clearInterval(flashInterval);
-page2.style.filter = 'saturate(0) brightness(0.3)';
-setTimeout(() => {
-page2.style.display = 'none';
-fbiPage.classList.add('show');
-playLowRumble();
-}, 200);
+// ============================================================
+// CIPHER
+// ============================================================
+const cipherDecodes=[
+  {hex:true,decoded:'SHE IS HERE'},
+  {hex:true,decoded:'YOU ARE NEXT'},
+  {hex:true,decoded:'...she sees you'},
+  {b64:true,decoded:'enter the archive'},
+];
+function tryDecode(idx){
+  const el=document.getElementById('cv'+idx);
+  if(el.classList.contains('decoded')) return;
+  el.classList.add('decoded');
+  el.textContent=cipherDecodes[idx].decoded;
+  playStaticBurst(.1);
+  if(idx===3){
+    setTimeout(()=>{
+      showNotification && showNotification('CIPHER COMPLETE','access the archive: type 666 or open the folder');
+    },500);
+  }
 }
-}, 70);
+function checkCipher(){
+  const v=document.getElementById('cipher-input').value.toUpperCase().trim();
+  const result=document.getElementById('cipher-result');
+  const correct=['SHE IS HERE','YOU ARE NEXT','ENTER THE ARCHIVE','666','SALLY'];
+  if(correct.includes(v)){
+    result.style.color='#00cc44';
+    result.textContent='✓ DECRYPTION SUCCESSFUL — ARCHIVE UNLOCKED';
+    playStaticBurst(.2);
+    setTimeout(()=>openArchiveFolder(),2000);
+  } else if(v){
+    result.style.color='#cc0000';
+    result.textContent='✗ INCORRECT KEY — SHE IS WATCHING YOUR ATTEMPTS';
+    playStaticBurst(.05);
+  }
+}
+
+// ============================================================
+// ARG CLUES
+// ============================================================
+function toggleClue(idx){
+  const c=document.getElementById('clue'+idx);
+  c.classList.toggle('open');
+  if(c.classList.contains('open')) playStaticBurst(.08);
+}
+
+// ============================================================
+// PAGE 2 — YOU ARE NEXT
+// ============================================================
+function enterPage2(){
+  const btn=document.getElementById('am-i-next-btn');
+  const trans=document.getElementById('page-transition');
+  if(btn){btn.disabled=true;btn.textContent='...';}
+  playScream();playLowRumble();
+  let g=0;
+  const gl=setInterval(()=>{
+    document.body.style.filter=g%2===0?'invert(1) hue-rotate(90deg) saturate(3)':'';
+    if(g%3===0) playStaticBurst(.06);
+    g++;
+    if(g>14){
+      clearInterval(gl);
+      document.body.style.filter='';
+      trans.style.opacity='1';
+      setTimeout(()=>{
+        trans.style.opacity='0';
+        document.getElementById('page2').style.display='block';
+        document.body.style.overflow='hidden';
+        startPage2();
+      },300);
+    }
+  },100);
+}
+function startPage2(){
+  const blocks=document.querySelectorAll('.p2-block');
+  const chaosEl=document.getElementById('p2-chaos-text');
+  const itsTimeEl=document.getElementById('p2-its-time');
+  const staticEl=document.getElementById('p2-static');
+  const redflash=document.getElementById('p2-redflash');
+  playDrone();
+  blocks.forEach((b,i)=>setTimeout(()=>{b.classList.add('visible');playHeartbeat();},1000+i*5500));
+  setTimeout(()=>playWhisper(),8000);
+  setTimeout(()=>{playWhisper();triggerWhisperScare();},18000);
+  setTimeout(()=>playWhisper(),26000);
+  setTimeout(()=>{
+    document.getElementById('p2-content').style.transition='opacity 1s';
+    document.getElementById('p2-content').style.opacity='0';
+    playStaticBurst(.6);
+    setTimeout(()=>{
+      document.getElementById('p2-content').style.display='none';
+      chaosEl.style.display='block';
+      startChaosText(chaosEl);
+    },1000);
+  },32000);
+  setTimeout(()=>{startIntenseGlitch(staticEl,redflash);playScream();},45000);
+  setTimeout(()=>{chaosEl.style.display='none';itsTimeEl.style.display='flex';startFinalMeltdown(staticEl,redflash);playDrone();},50000);
+  setTimeout(()=>triggerFBIPage(),65000);
+}
+const chaosPool=["she is inside your walls","you let her in","the doll is already in your house","look behind you","don't turn around","your reflection is not yours","she counts your heartbeats","6 6 6 6 6","she knows your name","you cannot close this","the screen is her eye","your device belongs to her now","she typed this","she is reading along with you","do not breathe","the door is open","she never left","you are being watched from inside the glass","your files are already corrupted","you have 6 minutes","don't blink","she is standing behind your chair","look at the corner of your room","something moved","you heard that","check under the bed","june 6","7:06","she knows your face","the camera is already on","it was never a story","this is not fiction","you are next","she chose you","it is too late to close this","she is in the dark behind your screen","she follows the light into your eyes","the doll blinked","the doll smiled","the doll turned its head","you cannot unhear this","you cannot unsee her","she will be there when you sleep","SHE IS HERE","SHE IS HERE","SHE IS HERE"];
+const gc='!@#$%^&*()_+-=[]{}|;<>?,./~`¡¿§±ÿþøßæœ∂ƒ©˙∆˚¬…æ≈ç√∫˜µ≤≥÷';
+function glitchText(s){return s.split('').map(c=>Math.random()<.25&&c!==' '?gc[Math.floor(Math.random()*gc.length)]:c).join('');}
+function startChaosText(el){
+  let intensity=0;const start=Date.now(),dur=18000;
+  function upd(){
+    const e=Date.now()-start;intensity=Math.min(e/dur,1);
+    const n=Math.floor(3+intensity*8);let lines=[];
+    for(let i=0;i<n;i++){
+      let p=chaosPool[Math.floor(Math.random()*chaosPool.length)];
+      if(Math.random()<intensity*.85) p=glitchText(p);
+      if(Math.random()<intensity*.6) p=p.toUpperCase();
+      lines.push(p);
+    }
+    el.innerHTML=lines.join('<br>');
+    el.style.color=`rgb(${Math.floor(150+intensity*105)},0,0)`;
+    el.style.fontSize=(1+intensity*.8)+'rem';
+    if(intensity>.5&&Math.random()<.3) playStaticBurst(.05);
+    if(e<dur) setTimeout(upd,Math.max(80,600-intensity*520));
+  }
+  upd();
+}
+function startIntenseGlitch(se,rf){
+  let tick=0;
+  const gi=setInterval(()=>{
+    tick++;
+    const p2=document.getElementById('page2');
+    const filters=['invert(1)','hue-rotate(90deg) saturate(5)','brightness(3)','contrast(10) hue-rotate(180deg)','invert(1) hue-rotate(45deg)','saturate(0) brightness(.1)','none'];
+    p2.style.filter=filters[tick%filters.length];
+    se.style.opacity=(Math.random()*.7).toString();
+    rf.style.opacity=(Math.random()*.6).toString();
+    p2.style.transform=`translate(${(Math.random()-.5)*20}px,${(Math.random()-.5)*20}px)`;
+    if(tick>50){clearInterval(gi);p2.style.filter='';p2.style.transform='';}
+  },100);
+}
+function startFinalMeltdown(se,rf){
+  const p2=document.getElementById('page2');let tick=0;
+  const m=setInterval(()=>{
+    tick++;
+    const intensity=Math.min(tick/30,1);
+    const filters=[`invert(${Math.random()}) hue-rotate(${Math.random()*360}deg) saturate(${1+Math.random()*10})`,`brightness(${Math.random()*5}) contrast(${Math.random()*10})`,`blur(${Math.random()*4}px) invert(1)`,'none','none'];
+    p2.style.filter=filters[Math.floor(Math.random()*filters.length)];
+    se.style.opacity=(Math.random()*.9).toString();
+    rf.style.opacity=(Math.random()*.8).toString();
+    const s=15+intensity*30;
+    p2.style.transform=`translate(${(Math.random()-.5)*s}px,${(Math.random()-.5)*s}px) rotate(${(Math.random()-.5)*3}deg)`;
+    const it=document.getElementById('p2-its-time');
+    if(Math.random()<.3){const ps=["IT'S TIME...","S̶H̸E̷'S̴ H̵E̶R̷E̴","666","RUN","TOO LATE","SHE FOUND YOU"];it.textContent=ps[Math.floor(Math.random()*ps.length)];}
+    if(tick>180) clearInterval(m);
+  },80);
+}
+
+// ============================================================
+// PAGE 3 NAVIGATION
+// ============================================================
+// already handled above
+
+// ============================================================
+// PAGE 4 — TRANSMISSIONS
+// ============================================================
+function openTransmissions(){
+  getAudioCtx();
+  playDrone();
+  document.getElementById('page4').style.display='block';
+  document.body.style.overflow='hidden';
+  // Build spectrogram animation
+  const spec=document.getElementById('p4-spectrogram');
+  spec.innerHTML='';
+  for(let i=0;i<80;i++){
+    const bar=document.createElement('div');
+    bar.className='spec-bar';
+    bar.style.left=(i*4+2)+'px';
+    bar.style.height='5px';
+    spec.appendChild(bar);
+  }
+  function animSpec(){
+    const bars=spec.querySelectorAll('.spec-bar');
+    bars.forEach(b=>{
+      const h=5+Math.random()*70;
+      b.style.height=h+'px';
+      b.style.background=`hsl(${0+Math.random()*20},${60+Math.random()*40}%,${20+Math.random()*30}%)`;
+    });
+  }
+  setInterval(animSpec,100);
+}
+function closePage4(){
+  document.getElementById('page4').style.display='none';
+  document.body.style.overflow='';
+}
+
+// ============================================================
+// PAGE 5 — CONFESSION / DIARY
+// ============================================================
+function openPage5(){
+  document.getElementById('page5').style.display='block';
+  document.body.style.overflow='hidden';
+  playWhisper();
+}
+function closePage5(){
+  document.getElementById('page5').style.display='none';
+  document.body.style.overflow='';
+}
+
+// ============================================================
+// FBI PAGE
+// ============================================================
+function triggerFBIPage(){
+  const fp=document.getElementById('fbi-page');
+  const p2=document.getElementById('page2');
+  playStaticBurst(1.0);playScream();
+  let fc=0;
+  const fi=setInterval(()=>{
+    p2.style.filter=fc%2===0?'invert(1) saturate(0) brightness(5)':'none';
+    p2.style.transform=`translate(${(Math.random()-.5)*40}px,${(Math.random()-.5)*40}px)`;
+    fc++;
+    if(fc>16){
+      clearInterval(fi);
+      p2.style.filter='saturate(0) brightness(.3)';
+      setTimeout(()=>{p2.style.display='none';fp.classList.add('show');playLowRumble();},200);
+    }
+  },70);
+}
+function revealFBISecret(){
+  const el=document.getElementById('fbi-hidden-msg');
+  el.innerHTML=`<span style="color:#cc0000;font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:2px;animation:flicker 1s infinite;">
+    CLEARANCE GRANTED<br><br>
+    CLASSIFIED ADDENDUM — CASE 666:<br><br>
+    The entity designated "Sally" has not been contained.<br>
+    All attempts at digital containment have failed.<br>
+    As of this date, her signal has been detected on:<br>
+    — 66,006 unique devices<br>
+    — 31 countries<br>
+    — Every screen that has displayed her name<br><br>
+    INCLUDING THIS ONE.<br><br>
+    This page will self-destruct in 6 seconds.<br><br>
+    <span style="color:#660000;">You were warned.</span>
+  </span>`;
+  playScream();
+  let ct=6;
+  const cd=setInterval(()=>{
+    ct--;
+    if(ct<=0){
+      clearInterval(cd);
+      let g=0;
+      const gfbi=setInterval(()=>{
+        document.getElementById('fbi-page').style.filter=g%2===0?'invert(1) saturate(5) hue-rotate(90deg)':'none';
+        g++;
+        if(g>20){
+          clearInterval(gfbi);
+          document.getElementById('fbi-page').style.filter='saturate(0) brightness(.05)';
+        }
+      },80);
+    }
+  },1000);
 }
 </script>
-
 </body>
 </html>
